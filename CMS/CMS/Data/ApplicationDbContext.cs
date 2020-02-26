@@ -22,5 +22,11 @@ namespace CMS.Data
             // For example, you can rename the ASP.NET Identity table names and more.
             // Add your customizations after calling base.OnModelCreating(builder);
         }
+
+        public DbSet<Branch> Branches { get; set; }
+        public DbSet<Employee> Employees { get; set; }
+        public DbSet<Percel> Percels { get; set; }
+        public DbSet<Receiver> Receivers { get; set; }
+        public DbSet<Sender> Senders { get; set; }
     }
 }
