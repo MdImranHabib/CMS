@@ -1,0 +1,64 @@
+﻿@model List<CMS.Models.ApplicationUser>
+
+@{
+    ViewData["Title"] = "RegisterIndex";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var i = 1;
+}
+
+<div class="well">
+    <h3 class="alert bg-primary text-center">Registered User Info</h3>
+
+    <table class="table table-bordered table-hover table-condensed" id="myTable">
+        <thead>
+            <tr class="bg-primary">
+                <th>#.</th>
+                <th>
+                    User name
+                </th>
+                <th>
+                    Email
+                </th>
+
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                if (i % 2 == 0)
+                {
+                    <tr class="warning">
+                        <td>@i.</td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.UserName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Email)
+                        </td>
+                    </tr>
+                }
+                else
+                {
+                    <tr class="success">
+                        <td>@i.</td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.UserName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Email)
+                        </td>
+                    </tr>
+                }
+                i++;
+            }
+        </tbody>
+    </table>
+</div>
+
+@*@section Scripts{
+    <script>
+        $(document).ready( function () {
+        $('#myTable').DataTable();
+        } );
+    </script>
+}*@

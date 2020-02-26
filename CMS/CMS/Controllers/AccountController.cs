@@ -13,10 +13,12 @@ using Microsoft.Extensions.Options;
 using CMS.Models;
 using CMS.Models.AccountViewModels;
 using CMS.Services;
+using CMS.Data;
+using Microsoft.EntityFrameworkCore;
 
 namespace CMS.Controllers
 {
-    [Authorize]
+    //[Authorize]
     [Route("[controller]/[action]")]
     public class AccountController : Controller
     {
@@ -24,17 +26,20 @@ namespace CMS.Controllers
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly IEmailSender _emailSender;
         private readonly ILogger _logger;
+        private readonly ApplicationDbContext _context;
 
         public AccountController(
             UserManager<ApplicationUser> userManager,
             SignInManager<ApplicationUser> signInManager,
             IEmailSender emailSender,
-            ILogger<AccountController> logger)
+            ILogger<AccountController> logger,
+            ApplicationDbContext context)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _emailSender = emailSender;
             _logger = logger;
+            _context = context;
         }
 
         [TempData]
@@ -204,17 +209,23 @@ namespace CMS.Controllers
             return View();
         }
 
-        [HttpGet]
-        [AllowAnonymous]
-        public IActionResult Register(string returnUrl = null)
+        public async Task<IActionResult> RegisterIndex()
         {
-            ViewData["ReturnUrl"] = returnUrl;
-            return View();
+            var users = await _context.Users.OrderBy(u => u.UserName).ToListAsync();
+            return View(users);
         }
 
-        [HttpPost]
-        [AllowAnonymous]
-        [ValidateAntiForgeryToken]
+        //[HttpGet]
+        //[AllowAnonymous]
+        //public IActionResult Register(string returnUrl = null)
+        //{
+        //    ViewData["ReturnUrl"] = returnUrl;
+        //    return View();
+        //}
+
+        //[HttpPost]
+        // [AllowAnonymous]
+        //[ValidateAntiForgeryToken]
         public async Task<IActionResult> Register(RegisterViewModel model, string returnUrl = null)
         {
             ViewData["ReturnUrl"] = returnUrl;
@@ -232,7 +243,8 @@ namespace CMS.Controllers
 
                     await _signInManager.SignInAsync(user, isPersistent: false);
                     _logger.LogInformation("User created a new account with password.");
-                    return RedirectToLocal(returnUrl);
+                    return RedirectToAction("RegisterIndex");
+                    //return RedirectToLocal(returnUrl);
                 }
                 AddErrors(result);
             }

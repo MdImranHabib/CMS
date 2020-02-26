@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using CMS.Data;
 using CMS.Models;
+using CMS.Models.ViewModels;
+using CMS.Models.AccountViewModels;
 
 namespace CMS.Controllers
 {
@@ -57,16 +59,33 @@ namespace CMS.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,Address,Email,Contact,BranchId")] Employee employee)
+        public async Task<IActionResult> Create([Bind("Id,Name,Address,Email,Contact,BranchId,Password,ConfirmPassword")] EmployeeViewModel employeeViewModel)
         {
             if (ModelState.IsValid)
             {
+                Employee employee = new Employee()
+                {
+                    Name = employeeViewModel.Name,
+                    Address = employeeViewModel.Address,
+                    Email = employeeViewModel.Email,
+                    Contact = employeeViewModel.Contact,
+                    BranchId = employeeViewModel.BranchId
+                };
+
                 _context.Add(employee);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+
+                RegisterViewModel model = new RegisterViewModel()
+                {
+                    Email = employeeViewModel.Email,
+                    Password = employeeViewModel.Password,
+                    ConfirmPassword = employeeViewModel.ConfirmPassword
+                };
+                return RedirectToAction("Register", "Account", model);
+               // return RedirectToAction(nameof(Index));
             }
-            ViewData["BranchId"] = new SelectList(_context.Branches, "Id", "Address", employee.BranchId);
-            return View(employee);
+            ViewData["BranchId"] = new SelectList(_context.Branches, "Id", "Address", employeeViewModel.BranchId);
+            return View(employeeViewModel);
         }
 
         // GET: Employees/Edit/5
