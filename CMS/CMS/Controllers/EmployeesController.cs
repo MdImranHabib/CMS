@@ -50,7 +50,7 @@ namespace CMS.Controllers
         // GET: Employees/Create
         public IActionResult Create()
         {
-            ViewData["BranchId"] = new SelectList(_context.Branches, "Id", "Address");
+            ViewData["BranchId"] = new SelectList(_context.Branches, "Id", "Name");
             return View();
         }
 
@@ -84,7 +84,7 @@ namespace CMS.Controllers
                 return RedirectToAction("Register", "Account", model);
                // return RedirectToAction(nameof(Index));
             }
-            ViewData["BranchId"] = new SelectList(_context.Branches, "Id", "Address", employeeViewModel.BranchId);
+            ViewData["BranchId"] = new SelectList(_context.Branches, "Id", "Name", employeeViewModel.BranchId);
             return View(employeeViewModel);
         }
 
@@ -101,7 +101,7 @@ namespace CMS.Controllers
             {
                 return NotFound();
             }
-            ViewData["BranchId"] = new SelectList(_context.Branches, "Id", "Address", employee.BranchId);
+            ViewData["BranchId"] = new SelectList(_context.Branches, "Id", "Name", employee.BranchId);
             return View(employee);
         }
 
@@ -137,7 +137,7 @@ namespace CMS.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["BranchId"] = new SelectList(_context.Branches, "Id", "Address", employee.BranchId);
+            ViewData["BranchId"] = new SelectList(_context.Branches, "Id", "Name", employee.BranchId);
             return View(employee);
         }
 

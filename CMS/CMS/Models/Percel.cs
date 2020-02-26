@@ -15,7 +15,8 @@ namespace CMS.Models
         public double Weight { get; set; }
 
         [Required]
-        [DisplayFormat(DataFormatString ="dd MMMM, yyyy")]
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:MMMM dd, yyyy}")]
         public DateTime ReceivingDate { get; set; }
 
         [Required]
