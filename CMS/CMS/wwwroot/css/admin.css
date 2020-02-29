@@ -1,0 +1,119 @@
+﻿body {
+    padding-top: 0px;
+    padding-bottom: 20px;
+    font-family:Arial,Helvetica,sans-serif;
+    margin:0px;
+}
+
+/* Wrapping element */
+/* Set some basic padding to keep content from hitting the edges */
+.body-content {  
+    padding-right: 5px;
+    margin-top:60px;
+    font-size:12px;
+    
+}
+
+
+/* Hide/rearrange for smaller screens */
+@media screen and (max-width: 767px) {
+    /* Hide captions */
+    .carousel-caption {
+        display: none;
+    }
+}
+
+
+/* Set height of the grid so .sidenav can be 100% (adjust as needed) */
+.row.content {
+    height:700px;
+}
+
+/* Set gray background color and 100% height to the collaps navbar*/
+.sidenavC {
+    background-color: #f1f1f1;
+    height: 100%;
+    overflow: auto;
+    /*position:fixed;*/
+}
+    /* Style the collaps nav links and the dropdown button */
+    .sidenavC a, .dropdown-btn {
+        /*padding: 16px 8px 6px 16px;*/
+        padding: 10px;
+        padding-left: 5px;
+        text-decoration: none;
+        font-size: 14px;
+        color: black;
+        display: block;
+        border: none;
+        background: #f1f1f1;
+        width: 100%;
+        text-align: left;
+        cursor: pointer;
+        outline: none;
+    }
+
+    /* On mouse-over */
+    .sidenavC a:hover, .dropdown-btn:hover {
+        color: rgb(0, 204, 102);
+    }
+
+/* Set gray background color and 100% height */
+.sidenav {
+    background-color: #f1f1f1;
+    /*background-color:#08AEEA;
+    background-image:linear-gradient(0deg, #08AEEA 0%, #2AF598 100%);*/
+    height: 100%;
+    position:fixed;
+    margin-top:51px;
+    overflow:auto;
+}
+
+    /* Style the sidenav links and the dropdown button */
+    .sidenav a, .dropdown-btn {
+        /*padding: 16px 8px 6px 16px;*/
+        padding: 10px;
+        padding-left: 5px;
+        text-decoration: none;
+        font-size: 14px;
+        color: black;
+        display: block;
+        border: none;
+        background: #f1f1f1;
+        width: 100%;
+        text-align: left;
+        cursor: pointer;
+        outline: none;
+    }
+
+        /* On mouse-over */
+        .sidenav a:hover, .dropdown-btn:hover {
+            color: rgb(0, 204, 102);
+        }
+
+/* Add an active class to the active dropdown button */
+.active {
+    background-color:#337ab7; /*rgb(255, 99, 71)*/
+    color: white;
+}
+
+/* Dropdown container (hidden by default). Optional: add a lighter background color and some left padding to change the design of the dropdown content */
+.dropdown-container{
+    display: none;
+    background-color: #f1f1f1;
+    padding-left: 10px;
+    font-size:10px;
+}
+
+/* Optional: Style the caret down icon */
+.fa-caret-down {
+    float: right;
+    padding-right: 8px;
+}
+
+/* On small screens, set height to 'auto' for the grid */
+@media screen and (max-width: 767px) {
+    .row.content {
+        height: auto;
+    }
+}

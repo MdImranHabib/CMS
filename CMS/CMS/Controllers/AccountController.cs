@@ -70,7 +70,8 @@ namespace CMS.Controllers
                 if (result.Succeeded)
                 {
                     _logger.LogInformation("User logged in.");
-                    return RedirectToLocal(returnUrl);
+                    //return RedirectToLocal(returnUrl);
+                    return RedirectToAction("Dashboard", "Home");
                 }
                 if (result.RequiresTwoFactor)
                 {
@@ -241,9 +242,9 @@ namespace CMS.Controllers
                     var callbackUrl = Url.EmailConfirmationLink(user.Id, code, Request.Scheme);
                     await _emailSender.SendEmailConfirmationAsync(model.Email, callbackUrl);
 
-                    await _signInManager.SignInAsync(user, isPersistent: false);
+                    //await _signInManager.SignInAsync(user, isPersistent: false);
                     _logger.LogInformation("User created a new account with password.");
-                    return RedirectToAction("RegisterIndex");
+                    return RedirectToAction("Index","Employees");
                     //return RedirectToLocal(returnUrl);
                 }
                 AddErrors(result);
