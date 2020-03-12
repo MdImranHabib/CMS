@@ -24,6 +24,7 @@ namespace CMS.Controllers
     {
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
+        private readonly RoleManager<IdentityRole> _roleManager;
         private readonly IEmailSender _emailSender;
         private readonly ILogger _logger;
         private readonly ApplicationDbContext _context;
@@ -31,12 +32,14 @@ namespace CMS.Controllers
         public AccountController(
             UserManager<ApplicationUser> userManager,
             SignInManager<ApplicationUser> signInManager,
+            RoleManager<IdentityRole> roleManager,
             IEmailSender emailSender,
             ILogger<AccountController> logger,
             ApplicationDbContext context)
         {
             _userManager = userManager;
             _signInManager = signInManager;
+            _roleManager = roleManager;
             _emailSender = emailSender;
             _logger = logger;
             _context = context;
@@ -471,6 +474,154 @@ namespace CMS.Controllers
                 return RedirectToAction(nameof(HomeController.Index), "Home");
             }
         }
+
+        [HttpGet]
+        public IActionResult CreateRole()
+        {
+            ViewBag.msg = "";
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> CreateRole(string rolename)
+        {
+            string msg = "";
+            if (!String.IsNullOrEmpty(rolename))
+            {
+                var exist = await _roleManager.RoleExistsAsync(rolename);
+                if (!exist)
+                {
+                    await _roleManager.CreateAsync(new IdentityRole { Name = rolename });
+                    msg = "Role" + " " + rolename + " " + "has been created.";
+                }
+                else
+                {
+                    msg = "Role" + " " + rolename + " " + "already exist.";
+                }
+            }
+            ViewBag.msg = msg;
+            return View("CreateRole");
+        }
+
+        [HttpGet]
+        public IActionResult AssignRole()
+        {
+            var roles = _roleManager.Roles;
+            List<string> rolelist = new List<string>();
+
+            foreach (var item in roles)
+            {
+                rolelist.Add(item.Name);
+            }
+
+            ViewBag.roles = rolelist;
+            ViewBag.msg = "";
+
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> AssignRole(string useremail, string rname)
+        {
+            string msg = "";
+            if (!String.IsNullOrEmpty(useremail))
+            {
+                ApplicationUser user = await _userManager.FindByEmailAsync(useremail);
+                if (!String.IsNullOrEmpty(rname))
+                {
+                    if (user != null)
+                    {
+                        IdentityResult result = await _userManager.AddToRoleAsync(user, rname);
+                        if (result.Succeeded)
+                        {
+                            msg = rname + " " + "role has been assigned to user" + " " + useremail + ".";
+                        }
+                        else
+                        {
+                            msg = "Sorry ! could not assigned role to user" + " " + useremail + ".";
+                        }
+                    }
+                    else
+                    {
+                        msg = "User" + " " + useremail + " " + "does not exist.";
+                    }
+                }
+                else
+                {
+                    msg = "Role" + " " + rname + " " + "does not exist.";
+                }
+            }
+            else
+            {
+                msg = "User email must be entered.";
+            }
+
+            ViewBag.msg = msg;
+            var roles = _roleManager.Roles;
+            List<string> rolelist = new List<string>();
+            foreach (var item in roles)
+            {
+                rolelist.Add(item.Name);
+            }
+
+            ViewBag.roles = rolelist;
+            return View("AssignRole");
+        }
+
+        //[HttpGet]
+        //public async Task<IActionResult> EditRole(string id)
+        //{
+        //    var role = await _roleManager.FindByIdAsync(id);
+
+        //    if (role == null)
+        //    {
+        //        return Content("Role with this Id is not available");
+        //    }
+
+        //    var model = new EditRoleViewModel
+        //    {
+        //        Id = role.Id,
+        //        RoleName = role.Name
+        //    };
+
+        //    foreach (var user in _userManager.Users)
+        //    {
+        //        if (await _userManager.IsInRoleAsync(user, role.Name))
+        //        {
+        //            model.Users.Add(user.UserName);
+        //        }
+        //    }
+
+        //    return View(model);
+        //}
+
+        //[HttpPost]
+        //public async Task<IActionResult> EditRole(EditRoleViewModel model)
+        //{
+        //    var role = await _roleManager.FindByIdAsync(model.Id);
+
+        //    if (role == null)
+        //    {
+        //        return Content("Role with this Id is not available");
+        //    }
+        //    else
+        //    {
+        //        role.Name = model.RoleName;
+        //        var result = await _roleManager.UpdateAsync(role);
+
+        //        if (result.Succeeded)
+        //        {
+        //            return RedirectToAction("RoleIndex");
+        //        }
+
+        //        foreach (var error in result.Errors)
+        //        {
+        //            ModelState.AddModelError("", error.Description);
+        //        }
+        //        return View(model);
+        //    }
+        //}
+
 
         #endregion
     }

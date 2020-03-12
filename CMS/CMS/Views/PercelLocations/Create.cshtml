@@ -1,0 +1,45 @@
+﻿@model CMS.Models.PercelLocation
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/AdminLayout.cshtml";
+}
+
+<h2>Create</h2>
+
+<h4>PercelLocation</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="BranchId" class="control-label"></label>
+                <select asp-for="BranchId" class ="form-control" asp-items="ViewBag.BranchId"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="PercelId" class="control-label"></label>
+                <input asp-for="PercelId" class="form-control" />
+                <span asp-validation-for="PercelId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Status" class="control-label"></label>
+                <input asp-for="Status" class="form-control" />
+                <span asp-validation-for="Status" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ReceivingDate" class="control-label"></label>
+                <input asp-for="ReceivingDate" class="form-control" />
+                <span asp-validation-for="ReceivingDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+

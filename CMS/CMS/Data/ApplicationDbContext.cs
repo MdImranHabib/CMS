@@ -28,5 +28,6 @@ namespace CMS.Data
         public DbSet<Percel> Percels { get; set; }
         public DbSet<Receiver> Receivers { get; set; }
         public DbSet<Sender> Senders { get; set; }
+        public DbSet<PercelLocation> PercelLocation { get; set; }
     }
 }

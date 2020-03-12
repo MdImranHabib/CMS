@@ -1,4 +1,4 @@
-﻿@model CMS.Models.Percel
+﻿@model CMS.Models.PercelLocation
 
 @{
     ViewData["Title"] = "Details";
@@ -8,20 +8,20 @@
 <h2>Details</h2>
 
 <div>
-    <h4>Percel</h4>
+    <h4>PercelLocation</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.Weight)
+            @Html.DisplayNameFor(model => model.PercelId)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.Weight)
+            @Html.DisplayFor(model => model.PercelId)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.Cost)
+            @Html.DisplayNameFor(model => model.Status)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.Cost)
+            @Html.DisplayFor(model => model.Status)
         </dd>
         <dt>
             @Html.DisplayNameFor(model => model.ReceivingDate)
@@ -30,16 +30,10 @@
             @Html.DisplayFor(model => model.ReceivingDate)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.Receiver)
+            @Html.DisplayNameFor(model => model.Branch)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.Receiver.Address)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Sender)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Sender.Address)
+            @Html.DisplayFor(model => model.Branch.Address)
         </dd>
     </dl>
 </div>

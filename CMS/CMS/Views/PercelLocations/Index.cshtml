@@ -1,4 +1,4 @@
-﻿@model IEnumerable<CMS.Models.Percel>
+﻿@model IEnumerable<CMS.Models.PercelLocation>
 
 @{
     ViewData["Title"] = "Index";
@@ -14,19 +14,16 @@
     <thead>
         <tr>
                 <th>
-                    @Html.DisplayNameFor(model => model.Weight)
+                    @Html.DisplayNameFor(model => model.PercelId)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.Cost)
+                    @Html.DisplayNameFor(model => model.Status)
                 </th>
                 <th>
                     @Html.DisplayNameFor(model => model.ReceivingDate)
                 </th>
             <th>
-                @Html.DisplayNameFor(model => model.Receiver)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Sender)
+                @Html.DisplayNameFor(model => model.Branch)
             </th>
             <th></th>
         </tr>
@@ -35,19 +32,16 @@
 @foreach (var item in Model) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.Weight)
+                @Html.DisplayFor(modelItem => item.PercelId)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Cost)
+                @Html.DisplayFor(modelItem => item.Status)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.ReceivingDate)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Receiver.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Sender.Name)
+                @Html.DisplayFor(modelItem => item.Branch.Address)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |

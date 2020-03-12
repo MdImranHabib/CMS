@@ -10,23 +10,23 @@ using CMS.Models;
 
 namespace CMS.Controllers
 {
-    public class PercelsController : Controller
+    public class PercelLocationsController : Controller
     {
         private readonly ApplicationDbContext _context;
 
-        public PercelsController(ApplicationDbContext context)
+        public PercelLocationsController(ApplicationDbContext context)
         {
             _context = context;
         }
 
-        // GET: Percels
+        // GET: PercelLocations
         public async Task<IActionResult> Index()
         {
-            var applicationDbContext = _context.Percels.Include(p => p.Receiver).Include(p => p.Sender);
+            var applicationDbContext = _context.PercelLocation.Include(p => p.Branch);
             return View(await applicationDbContext.ToListAsync());
         }
 
-        // GET: Percels/Details/5
+        // GET: PercelLocations/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -34,45 +34,42 @@ namespace CMS.Controllers
                 return NotFound();
             }
 
-            var percel = await _context.Percels
-                .Include(p => p.Receiver)
-                .Include(p => p.Sender)
+            var percelLocation = await _context.PercelLocation
+                .Include(p => p.Branch)
                 .SingleOrDefaultAsync(m => m.Id == id);
-            if (percel == null)
+            if (percelLocation == null)
             {
                 return NotFound();
             }
 
-            return View(percel);
+            return View(percelLocation);
         }
 
-        // GET: Percels/Create
+        // GET: PercelLocations/Create
         public IActionResult Create()
         {
-            ViewData["ReceiverId"] = new SelectList(_context.Receivers, "Id", "Address");
-            ViewData["SenderId"] = new SelectList(_context.Senders, "Id", "Address");
+            ViewData["BranchId"] = new SelectList(_context.Branches, "Id", "Address");
             return View();
         }
 
-        // POST: Percels/Create
+        // POST: PercelLocations/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Weight,Cost,ReceivingDate,SenderId,ReceiverId")] Percel percel)
+        public async Task<IActionResult> Create([Bind("Id,BranchId,PercelId,Status,ReceivingDate")] PercelLocation percelLocation)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(percel);
+                _context.Add(percelLocation);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["ReceiverId"] = new SelectList(_context.Receivers, "Id", "Address", percel.ReceiverId);
-            ViewData["SenderId"] = new SelectList(_context.Senders, "Id", "Address", percel.SenderId);
-            return View(percel);
+            ViewData["BranchId"] = new SelectList(_context.Branches, "Id", "Address", percelLocation.BranchId);
+            return View(percelLocation);
         }
 
-        // GET: Percels/Edit/5
+        // GET: PercelLocations/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -80,24 +77,23 @@ namespace CMS.Controllers
                 return NotFound();
             }
 
-            var percel = await _context.Percels.SingleOrDefaultAsync(m => m.Id == id);
-            if (percel == null)
+            var percelLocation = await _context.PercelLocation.SingleOrDefaultAsync(m => m.Id == id);
+            if (percelLocation == null)
             {
                 return NotFound();
             }
-            ViewData["ReceiverId"] = new SelectList(_context.Receivers, "Id", "Address", percel.ReceiverId);
-            ViewData["SenderId"] = new SelectList(_context.Senders, "Id", "Address", percel.SenderId);
-            return View(percel);
+            ViewData["BranchId"] = new SelectList(_context.Branches, "Id", "Address", percelLocation.BranchId);
+            return View(percelLocation);
         }
 
-        // POST: Percels/Edit/5
+        // POST: PercelLocations/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Weight,Cost,ReceivingDate,SenderId,ReceiverId")] Percel percel)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,BranchId,PercelId,Status,ReceivingDate")] PercelLocation percelLocation)
         {
-            if (id != percel.Id)
+            if (id != percelLocation.Id)
             {
                 return NotFound();
             }
@@ -106,12 +102,12 @@ namespace CMS.Controllers
             {
                 try
                 {
-                    _context.Update(percel);
+                    _context.Update(percelLocation);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!PercelExists(percel.Id))
+                    if (!PercelLocationExists(percelLocation.Id))
                     {
                         return NotFound();
                     }
@@ -122,12 +118,11 @@ namespace CMS.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["ReceiverId"] = new SelectList(_context.Receivers, "Id", "Address", percel.ReceiverId);
-            ViewData["SenderId"] = new SelectList(_context.Senders, "Id", "Address", percel.SenderId);
-            return View(percel);
+            ViewData["BranchId"] = new SelectList(_context.Branches, "Id", "Address", percelLocation.BranchId);
+            return View(percelLocation);
         }
 
-        // GET: Percels/Delete/5
+        // GET: PercelLocations/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -135,32 +130,31 @@ namespace CMS.Controllers
                 return NotFound();
             }
 
-            var percel = await _context.Percels
-                .Include(p => p.Receiver)
-                .Include(p => p.Sender)
+            var percelLocation = await _context.PercelLocation
+                .Include(p => p.Branch)
                 .SingleOrDefaultAsync(m => m.Id == id);
-            if (percel == null)
+            if (percelLocation == null)
             {
                 return NotFound();
             }
 
-            return View(percel);
+            return View(percelLocation);
         }
 
-        // POST: Percels/Delete/5
+        // POST: PercelLocations/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var percel = await _context.Percels.SingleOrDefaultAsync(m => m.Id == id);
-            _context.Percels.Remove(percel);
+            var percelLocation = await _context.PercelLocation.SingleOrDefaultAsync(m => m.Id == id);
+            _context.PercelLocation.Remove(percelLocation);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool PercelExists(int id)
+        private bool PercelLocationExists(int id)
         {
-            return _context.Percels.Any(e => e.Id == id);
+            return _context.PercelLocation.Any(e => e.Id == id);
         }
     }
 }

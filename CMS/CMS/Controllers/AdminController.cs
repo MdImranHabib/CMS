@@ -1,0 +1,80 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using CMS.Data;
+using CMS.Models;
+using CMS.Models.ViewModels;
+using Microsoft.AspNetCore.Mvc;
+
+namespace CMS.Controllers
+{
+    public class AdminController : Controller
+    {
+        private readonly ApplicationDbContext _context;
+
+        public AdminController(ApplicationDbContext context)
+        {
+            _context = context;
+        }
+
+        public IActionResult ReceivePercel()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> ReceivePercel([Bind("SenderName,SenderAddress,SenderEmail,SenderContact,ReceiverName,ReceiverAddress,ReceiverEmail,ReceiverContact,Weight,Cost")] PercelReceive percelReceive)
+        {
+            if (ModelState.IsValid)
+            {
+                Sender sender = new Sender() {
+                    Name = percelReceive.SenderName,
+                    Address = percelReceive.SenderAddress,
+                    Email = percelReceive.SenderEmail,
+                    Contact = percelReceive.SenderContact
+                };
+                
+                _context.Add(sender);
+                await _context.SaveChangesAsync();
+
+                Receiver receiver = new Receiver()
+                {
+                    Name = percelReceive.ReceiverName,
+                    Address = percelReceive.ReceiverAddress,
+                    Email = percelReceive.ReceiverEmail,
+                    Contact = percelReceive.ReceiverContact
+
+                };
+
+                _context.Add(receiver);
+                await _context.SaveChangesAsync();
+
+                Percel percel = new Percel() {
+                    Weight = percelReceive.Weight,
+                    Cost = percelReceive.Cost,
+                    ReceivingDate = System.DateTime.Now,
+                    SenderId = sender.Id,
+                    ReceiverId = receiver.Id
+                };
+
+                _context.Add(percel);
+                await _context.SaveChangesAsync();
+
+                PercelLocation percelLocation = new PercelLocation()
+                {
+
+                };
+
+                return RedirectToAction(nameof(Report));
+            }
+            return View(percelReceive);
+        }
+
+        public IActionResult Report()
+        {
+            return View();
+        }
+    }
+}

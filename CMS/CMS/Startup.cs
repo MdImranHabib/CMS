@@ -37,6 +37,11 @@ namespace CMS
             services.AddTransient<IEmailSender, EmailSender>();
 
             services.AddMvc();
+            services.AddDistributedMemoryCache();
+            services.AddSession(option =>
+            {
+                option.IdleTimeout = TimeSpan.FromMinutes(5);
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -56,6 +61,8 @@ namespace CMS
             app.UseStaticFiles();
 
             app.UseAuthentication();
+
+            app.UseSession();
 
             app.UseMvc(routes =>
             {

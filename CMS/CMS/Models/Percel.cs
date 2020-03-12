@@ -15,6 +15,10 @@ namespace CMS.Models
         public double Weight { get; set; }
 
         [Required]
+        [Range(0.0, double.MaxValue, ErrorMessage = "Cost can't be negative")]
+        public double Cost { get; set; }
+
+        [Required]
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:MMMM dd, yyyy}")]
         public DateTime ReceivingDate { get; set; }
