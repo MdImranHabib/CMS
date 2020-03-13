@@ -15,6 +15,7 @@ using CMS.Models.AccountViewModels;
 using CMS.Services;
 using CMS.Data;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Http;
 
 namespace CMS.Controllers
 {
@@ -72,9 +73,37 @@ namespace CMS.Controllers
                 var result = await _signInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, lockoutOnFailure: false);
                 if (result.Succeeded)
                 {
-                    _logger.LogInformation("User logged in.");
-                    //return RedirectToLocal(returnUrl);
-                    return RedirectToAction("Dashboard", "Home");
+                    var user = _context.Users.Where(u => u.Email == model.Email).FirstOrDefault();
+                    var userId = user.Id;
+                    //var userEmail = user.Email;
+                    var userRole = _context.UserRoles.Where(u => u.UserId == userId).FirstOrDefault();
+                    var roleId = userRole.RoleId;
+                    var role = _context.Roles.Where(r => r.Id == roleId).FirstOrDefault();
+                    var roleType = role.Name;
+
+                    if (roleType == "Admin")
+                    {
+                        var employee = _context.Employees.Where(e => e.Email == model.Email).FirstOrDefault();
+                        int employeeId = employee.Id;
+                        HttpContext.Session.SetInt32("employeeId", employeeId);
+
+                        _logger.LogInformation("User logged in.");
+                        return RedirectToAction("Dashboard", "Home");
+                    }
+                    else if (roleType == "Executive")
+                    {
+                        var employee = _context.Employees.Where(e => e.Email == model.Email).FirstOrDefault();
+                        int employeeId = employee.Id;
+                        HttpContext.Session.SetInt32("employeeId", employeeId);
+
+                        _logger.LogInformation("User logged in.");
+                        return RedirectToAction("Dashboard", "Home");
+                    }
+                    else
+                    {
+                        return Content("User Role is Unknown! Please Check the User Role... ");
+                    }
+                   
                 }
                 if (result.RequiresTwoFactor)
                 {

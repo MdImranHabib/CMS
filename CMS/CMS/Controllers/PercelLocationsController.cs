@@ -48,7 +48,7 @@ namespace CMS.Controllers
         // GET: PercelLocations/Create
         public IActionResult Create()
         {
-            ViewData["BranchId"] = new SelectList(_context.Branches, "Id", "Address");
+            ViewData["BranchId"] = new SelectList(_context.Branches, "Id", "Name");
             return View();
         }
 

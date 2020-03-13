@@ -1,0 +1,31 @@
+﻿
+@{
+    ViewData["Title"] = "AssignRole";
+    Layout = "~/Views/Shared/AdminLayout.cshtml";
+}
+
+<div class="well">
+    <h3 class="alert bg-primary text-center">Assign Role</h3>
+    <div class="row">
+        <div class="col-md-4 col-lg-offset-4">
+            <div><h4 class="text-primary">@ViewBag.msg</h4></div>
+            <form asp-controller="Account" asp-action="AssignRole" method="post">
+                <div class="form-group">
+                    <label>User Email</label>
+                    <input type="email" class="form-control" name="useremail" value="" placeholder="Please type user email." />
+                </div>
+                <div class="form-group">
+                    <label>User Role</label>
+                    <select class="form-control" name="rname">
+                        @foreach (var item in ViewBag.roles)
+                        {
+                            <option value="@item">@item</option>
+                        }
+                    </select>
+                </div>
+                <input type="submit" class="form-control btn btn-success" value="Assign Role" />
+            </form>
+        </div>
+    </div>
+</div>
+
