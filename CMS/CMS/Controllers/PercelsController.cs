@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using CMS.Data;
 using CMS.Models;
+using Microsoft.AspNetCore.Http;
 
 namespace CMS.Controllers
 {
@@ -22,8 +23,15 @@ namespace CMS.Controllers
         // GET: Percels
         public async Task<IActionResult> Index()
         {
-            var applicationDbContext = _context.Percels.Include(p => p.Receiver).Include(p => p.Sender);
-            return View(await applicationDbContext.ToListAsync());
+            var employeeId = HttpContext.Session.GetInt32("employeeId");
+            var employee = _context.Employees.FirstOrDefault(e => e.Id == employeeId);
+
+            var percels = _context.Percels
+                .Include(p => p.Branch)
+                .Include(p => p.Receiver)
+                .Include(p => p.Sender)
+                .Where(p => p.BranchId == employee.BranchId);
+            return View(await percels.ToListAsync());
         }
 
         // GET: Percels/Details/5
@@ -35,6 +43,7 @@ namespace CMS.Controllers
             }
 
             var percel = await _context.Percels
+                .Include(p => p.Branch)
                 .Include(p => p.Receiver)
                 .Include(p => p.Sender)
                 .SingleOrDefaultAsync(m => m.Id == id);
@@ -49,8 +58,9 @@ namespace CMS.Controllers
         // GET: Percels/Create
         public IActionResult Create()
         {
-            ViewData["ReceiverId"] = new SelectList(_context.Receivers, "Id", "Address");
-            ViewData["SenderId"] = new SelectList(_context.Senders, "Id", "Address");
+            ViewData["BranchId"] = new SelectList(_context.Branches, "Id", "Name");
+            ViewData["ReceiverId"] = new SelectList(_context.Receivers, "Id", "Name");
+            ViewData["SenderId"] = new SelectList(_context.Senders, "Id", "Name");
             return View();
         }
 
@@ -59,7 +69,7 @@ namespace CMS.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Weight,Cost,ReceivingDate,SenderId,ReceiverId")] Percel percel)
+        public async Task<IActionResult> Create([Bind("Id,Weight,Cost,ReceivingDate,SenderId,ReceiverId,BranchId,Status")] Percel percel)
         {
             if (ModelState.IsValid)
             {
@@ -67,8 +77,9 @@ namespace CMS.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["ReceiverId"] = new SelectList(_context.Receivers, "Id", "Address", percel.ReceiverId);
-            ViewData["SenderId"] = new SelectList(_context.Senders, "Id", "Address", percel.SenderId);
+            ViewData["BranchId"] = new SelectList(_context.Branches, "Id", "Name", percel.BranchId);
+            ViewData["ReceiverId"] = new SelectList(_context.Receivers, "Id", "Name", percel.ReceiverId);
+            ViewData["SenderId"] = new SelectList(_context.Senders, "Id", "Name", percel.SenderId);
             return View(percel);
         }
 
@@ -85,8 +96,9 @@ namespace CMS.Controllers
             {
                 return NotFound();
             }
-            ViewData["ReceiverId"] = new SelectList(_context.Receivers, "Id", "Address", percel.ReceiverId);
-            ViewData["SenderId"] = new SelectList(_context.Senders, "Id", "Address", percel.SenderId);
+            ViewData["BranchId"] = new SelectList(_context.Branches, "Id", "Name", percel.BranchId);
+            ViewData["ReceiverId"] = new SelectList(_context.Receivers, "Id", "name", percel.ReceiverId);
+            ViewData["SenderId"] = new SelectList(_context.Senders, "Id", "name", percel.SenderId);
             return View(percel);
         }
 
@@ -95,7 +107,7 @@ namespace CMS.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Weight,Cost,ReceivingDate,SenderId,ReceiverId")] Percel percel)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Weight,Cost,ReceivingDate,SenderId,ReceiverId,BranchId,Status")] Percel percel)
         {
             if (id != percel.Id)
             {
@@ -122,10 +134,82 @@ namespace CMS.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["ReceiverId"] = new SelectList(_context.Receivers, "Id", "Address", percel.ReceiverId);
-            ViewData["SenderId"] = new SelectList(_context.Senders, "Id", "Address", percel.SenderId);
+            ViewData["BranchId"] = new SelectList(_context.Branches, "Id", "Name", percel.BranchId);
+            ViewData["ReceiverId"] = new SelectList(_context.Receivers, "Id", "Name", percel.ReceiverId);
+            ViewData["SenderId"] = new SelectList(_context.Senders, "Id", "Name", percel.SenderId);
             return View(percel);
         }
+
+        public async Task<IActionResult> Deliver(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var percel = await _context.Percels.SingleOrDefaultAsync(m => m.Id == id);
+            if (percel == null)
+            {
+                return NotFound();
+            }
+
+            Percel apercel = new Percel()
+            {
+                Id = percel.Id,
+                Weight = percel.Weight,
+                Cost = percel.Cost,
+                ReceivingDate = percel.ReceivingDate,
+                SenderId = percel.SenderId,
+                ReceiverId = percel.ReceiverId,
+                BranchId = percel.BranchId,
+                Status = "Delivered"
+            };
+
+            _context.Update(apercel);
+            await _context.SaveChangesAsync();
+            //ViewData["BranchId"] = new SelectList(_context.Branches, "Id", "Name", percel.BranchId);
+            //ViewData["ReceiverId"] = new SelectList(_context.Receivers, "Id", "Name", percel.ReceiverId);
+            //ViewData["SenderId"] = new SelectList(_context.Senders, "Id", "Name", percel.SenderId);
+            return RedirectToAction("Index");
+        }
+
+        // POST: Percels/Edit/5
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public async Task<IActionResult> Deliver(int id, [Bind("Id,Weight,Cost,ReceivingDate,SenderId,ReceiverId,BranchId,Status")] Percel percel)
+        //{
+        //    if (id != percel.Id)
+        //    {
+        //        return NotFound();
+        //    }
+
+        //    if (ModelState.IsValid)
+        //    {
+        //        try
+        //        {
+        //            _context.Update(percel);
+        //            await _context.SaveChangesAsync();
+        //        }
+        //        catch (DbUpdateConcurrencyException)
+        //        {
+        //            if (!PercelExists(percel.Id))
+        //            {
+        //                return NotFound();
+        //            }
+        //            else
+        //            {
+        //                throw;
+        //            }
+        //        }
+        //        return RedirectToAction(nameof(Index));
+        //    }
+        //    ViewData["BranchId"] = new SelectList(_context.Branches, "Id", "Name", percel.BranchId);
+        //    ViewData["ReceiverId"] = new SelectList(_context.Receivers, "Id", "Name", percel.ReceiverId);
+        //    ViewData["SenderId"] = new SelectList(_context.Senders, "Id", "Name", percel.SenderId);
+        //    return View(percel);
+        //}
 
         // GET: Percels/Delete/5
         public async Task<IActionResult> Delete(int? id)
@@ -136,6 +220,7 @@ namespace CMS.Controllers
             }
 
             var percel = await _context.Percels
+                .Include(p => p.Branch)
                 .Include(p => p.Receiver)
                 .Include(p => p.Sender)
                 .SingleOrDefaultAsync(m => m.Id == id);

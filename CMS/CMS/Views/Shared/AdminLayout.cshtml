@@ -37,13 +37,18 @@
             </div>
 
             <div class="collapse navbar-collapse sidenavC" id="myNavbar">
-                <a asp-area="" asp-controller="Home" asp-action="Dashboard">Home</a>
-                <a asp-area="" asp-controller="Admin" asp-action="ReceivePercel">Receive Percel</a>
+                <a asp-area="" asp-controller="Home" asp-action="Dashboard"><span class="glyphicon glyphicon-dashboard"></span> Home</a>
+                <button class="dropdown-btn"><span class="glyphicon glyphicon-gift"></span> Percel<span class="fa fa-caret-down"></span></button>
+                <div class="dropdown-container">
+                    <a asp-area="" asp-controller="Percels" asp-action="Index"><span class="glyphicon glyphicon-list"></span> Percel List</a>
+                    <a asp-area="" asp-controller="Admin" asp-action="ReceivePercel"><span class="glyphicon glyphicon-pencil"></span> Receive from User</a>
+                    <a asp-area="" asp-controller="PercelLocations" asp-action="Create"><span class="glyphicon glyphicon-pencil"></span> Receive from Branch</a>
+                    <a asp-area="" asp-controller="PercelLocations" asp-action="Edit"><span class="glyphicon glyphicon-pencil"></span> Deliver</a>
+                </div>               
                 <a asp-area="" asp-controller="Branches" asp-action="Index">Branches</a>
                 <a asp-area="" asp-controller="Employees" asp-action="Index">Employees</a>
                 <a asp-area="" asp-controller="Senders" asp-action="Index">Senders</a>
                 <a asp-area="" asp-controller="Receivers" asp-action="Index">Receivers</a>
-                <a asp-area="" asp-controller="Percels" asp-action="Index">Percels</a>
                 <button class="dropdown-btn"><span class="glyphicon glyphicon-user"></span> User<span class="fa fa-caret-down"></span></button>
                 <div class="dropdown-container">
                     <a asp-area="" asp-controller="Account" asp-action="RegisterIndex"><span class="glyphicon glyphicon-list"></span> Registered User</a>
@@ -67,12 +72,17 @@
             <div class="col-sm-2 col-md-2 col-lg-2 sidenav hidden-xs">
                 <br />
                 <a asp-area="" asp-controller="Home" asp-action="Dashboard">Home</a>
-                <a asp-area="" asp-controller="Admin" asp-action="ReceivePercel">Receive Percel</a>
+                <button class="dropdown-btn"><span class="glyphicon glyphicon-gift"></span> Percel<span class="fa fa-caret-down"></span></button>
+                <div class="dropdown-container">
+                    <a asp-area="" asp-controller="Percels" asp-action="Index"><span class="glyphicon glyphicon-list"></span> Percel List</a>
+                    <a asp-area="" asp-controller="Admin" asp-action="ReceivePercel"><span class="glyphicon glyphicon-pencil"></span> Receive from User</a>
+                    <a asp-area="" asp-controller="PercelLocations" asp-action="Create"><span class="glyphicon glyphicon-pencil"></span> Receive from Branch</a>
+                    <a asp-area="" asp-controller="PercelLocations" asp-action="Edit"><span class="glyphicon glyphicon-pencil"></span> Deliver</a>
+                </div>
                 <a asp-area="" asp-controller="Branches" asp-action="Index">Branches</a>
                 <a asp-area="" asp-controller="Employees" asp-action="Index">Employees</a>
                 <a asp-area="" asp-controller="Senders" asp-action="Index">Senders</a>
                 <a asp-area="" asp-controller="Receivers" asp-action="Index">Receivers</a>
-                <a asp-area="" asp-controller="Percels" asp-action="Index">Percels</a>
                 <button class="dropdown-btn"><span class="glyphicon glyphicon-user"></span> User<span class="fa fa-caret-down"></span></button>
                 <div class="dropdown-container">
                     <a asp-area="" asp-controller="Account" asp-action="RegisterIndex"><span class="glyphicon glyphicon-list"></span> Registered User</a>

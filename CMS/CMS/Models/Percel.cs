@@ -29,8 +29,17 @@ namespace CMS.Models
         [Required]
         public int ReceiverId { get; set; }
 
+        [Required]
+        public int BranchId { get; set; }
+
+        [Required]
+        [StringLength(15)]
+        public string Status { get; set; }
+
         public virtual Sender Sender { get; set; }
 
         public virtual Receiver Receiver { get; set; }
+
+        public virtual Branch Branch { get; set; }
     }
 }

@@ -1,0 +1,57 @@
+﻿@model EditRoleViewModel
+@{
+    ViewData["Title"] = "EditRole";
+    Layout = "~/Views/Shared/AdminLayout.cshtml";
+}
+
+<div class="well">
+    <h3 class="alert bg-primary text-center">Edit Role</h3>
+    <hr />
+    <div class="row">
+        <div class="col-md-4 col-md-offset-1">
+            <form asp-action="EditRole" method="post">
+                <div class="form-group">
+                    <input type="hidden" asp-for="Id" class="form-control" />
+                </div>
+                <div class="form-group">
+                    <label asp-for="RoleName" class="control-label">Role Name</label>
+                    <input asp-for="RoleName" class="form-control" />
+                    <span asp-validation-for="RoleName" class="text-danger"></span>
+                </div>
+
+                <div asp-validation-summary="All" class="text-danger"></div>
+
+                <div class="form-group">
+                    <button type="submit" class="btn btn-success">Update</button>
+                    <a asp-action="RoleIndex" class="btn btn-primary">Back to List</a>
+                </div>
+            </form>
+        </div>
+        <div class="col-md-4 col-md-offset-2">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th class="bg-primary text-center">Users In This Role</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model.Users.Any())
+                    {
+                        foreach (var user in Model.Users)
+                        {
+                            <tr><td>@user</td></tr>
+                        }
+                    }
+                    else
+                    {
+                        <tr><td>None at this moment</td></tr>
+                    }
+                </tbody>
+
+            </table>
+            <div>
+                <a asp-action="EditUsersInRole" asp-controller="Account" asp-route-roleId="@Model.Id" class="btn btn-warning">Add or Remove Users</a>
+            </div>
+        </div>
+    </div>
+</div>

@@ -52,29 +52,32 @@ namespace CMS.Controllers
                 _context.Add(receiver);
                 await _context.SaveChangesAsync();
 
+                var employeeId = HttpContext.Session.GetInt32("employeeId");
+                var employee = _context.Employees.FirstOrDefault(e => e.Id == employeeId);
                 Percel percel = new Percel() {
                     Weight = percelReceive.Weight,
                     Cost = percelReceive.Cost,
                     ReceivingDate = System.DateTime.Now,
                     SenderId = sender.Id,
-                    ReceiverId = receiver.Id
+                    ReceiverId = receiver.Id,
+                    BranchId = employee.BranchId,
+                    Status = "Received"
                 };
 
                 _context.Add(percel);
                 await _context.SaveChangesAsync();
 
-                var employeeId = HttpContext.Session.GetInt32("employeeId");
-                var employee = _context.Employees.FirstOrDefault(e => e.Id == employeeId);
-                PercelLocation percelLocation = new PercelLocation()
-                {
-                    BranchId = employee.BranchId,
-                    PercelId = percel.Id,
-                    Status = "Received",
-                    ReceivingDate = System.DateTime.Now
-                };
+                
+                //PercelLocation percelLocation = new PercelLocation()
+                //{
+                //    BranchId = employee.BranchId,
+                //    PercelId = percel.Id,
+                //    Status = "Received",
+                //    ReceivingDate = System.DateTime.Now
+                //};
 
-                _context.Add(percelLocation);
-                await _context.SaveChangesAsync();
+                //_context.Add(percelLocation);
+                //await _context.SaveChangesAsync();
 
                 return RedirectToAction(nameof(Report));
             }

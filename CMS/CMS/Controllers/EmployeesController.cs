@@ -47,6 +47,17 @@ namespace CMS.Controllers
             return View(employee);
         }
 
+        public JsonResult IsEmailExist(string email)
+        {
+            bool result = false;
+
+            if (_context.Employees.Any(c => c.Email == email))
+            {
+                result = true;
+            }
+            return Json(result);
+        }
+
         // GET: Employees/Create
         public IActionResult Create()
         {

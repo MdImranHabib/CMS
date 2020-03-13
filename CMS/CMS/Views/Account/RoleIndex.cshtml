@@ -1,0 +1,73 @@
+﻿@model IEnumerable<IdentityRole>
+@{
+    ViewData["Title"] = "RoleIndex";
+    Layout = "~/Views/Shared/AdminLayout.cshtml";
+    var i = 1;
+}
+
+<div class="well">
+    <h3 class="alert bg-primary text-center">Role List</h3>
+    <p>
+        <a asp-action="CreateRole" class="btn btn-success">Add New</a>
+    </p>
+    <table class="table table-bordered table-hover table-condensed" id="myTable">
+        <thead>
+            <tr class="bg-primary">
+                <th>#.</th>
+                @*<th>
+                    @Html.DisplayNameFor(model => model.Id)
+                </th>*@
+                <th>
+                    @Html.DisplayNameFor(model => model.Name)
+                </th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                if (i % 2 == 0)
+                {
+                    <tr class="warning">
+                        <td>@i.</td>
+                        @*<td>
+                            @Html.DisplayFor(modelItem => item.Id)
+                        </td>*@
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Name)
+                        </td>
+                        <td>
+                            <a asp-controller="Account" asp-action="EditRole" asp-route-id="@item.Id" class="btn btn-xs btn-warning">Edit</a>
+                            <a asp-controller="Account" asp-action="DeleteRole" asp-route-id="@item.Id" class="btn btn-xs btn-danger">Delete</a>
+                        </td>
+                    </tr>
+                }
+                else
+                {
+                    <tr class="success">
+                        <td>@i.</td>
+                        @*<td>
+                            @Html.DisplayFor(modelItem => item.Id)
+                        </td>*@
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Name)
+                        </td>
+                        <td>
+                            <a asp-controller="Account" asp-action="EditRole" asp-route-id="@item.Id" class="btn btn-xs btn-warning">Edit</a>
+                            <a asp-controller="Account" asp-action="DeleteRole" asp-route-id="@item.Id" class="btn btn-xs btn-danger">Delete</a>
+                        </td>
+                    </tr>
+                }
+                i++;
+            }
+        </tbody>
+    </table>
+</div>
+
+@section Scripts{
+    <script>
+        $(document).ready( function () {
+        $('#myTable').DataTable();
+        } );
+    </script>
+}

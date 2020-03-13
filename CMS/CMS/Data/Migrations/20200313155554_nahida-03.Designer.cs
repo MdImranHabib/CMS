@@ -11,9 +11,10 @@ using System;
 namespace CMS.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200313155554_nahida-03")]
+    partial class nahida03
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -128,8 +129,6 @@ namespace CMS.Data.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<int>("BranchId");
-
                     b.Property<double>("Cost");
 
                     b.Property<int>("ReceiverId");
@@ -138,15 +137,9 @@ namespace CMS.Data.Migrations
 
                     b.Property<int>("SenderId");
 
-                    b.Property<string>("Status")
-                        .IsRequired()
-                        .HasMaxLength(15);
-
                     b.Property<double>("Weight");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("BranchId");
 
                     b.HasIndex("ReceiverId");
 
@@ -343,11 +336,6 @@ namespace CMS.Data.Migrations
 
             modelBuilder.Entity("CMS.Models.Percel", b =>
                 {
-                    b.HasOne("CMS.Models.Branch", "Branch")
-                        .WithMany()
-                        .HasForeignKey("BranchId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
                     b.HasOne("CMS.Models.Receiver", "Receiver")
                         .WithMany()
                         .HasForeignKey("ReceiverId")
