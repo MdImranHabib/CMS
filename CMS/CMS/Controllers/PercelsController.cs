@@ -153,63 +153,13 @@ namespace CMS.Controllers
                 return NotFound();
             }
 
-            Percel apercel = new Percel()
-            {
-                Id = percel.Id,
-                Weight = percel.Weight,
-                Cost = percel.Cost,
-                ReceivingDate = percel.ReceivingDate,
-                SenderId = percel.SenderId,
-                ReceiverId = percel.ReceiverId,
-                BranchId = percel.BranchId,
-                Status = "Delivered"
-            };
+            percel.Status = "Delivered";
 
-            _context.Update(apercel);
+            _context.Update(percel);
             await _context.SaveChangesAsync();
-            //ViewData["BranchId"] = new SelectList(_context.Branches, "Id", "Name", percel.BranchId);
-            //ViewData["ReceiverId"] = new SelectList(_context.Receivers, "Id", "Name", percel.ReceiverId);
-            //ViewData["SenderId"] = new SelectList(_context.Senders, "Id", "Name", percel.SenderId);
+
             return RedirectToAction("Index");
         }
-
-        // POST: Percels/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public async Task<IActionResult> Deliver(int id, [Bind("Id,Weight,Cost,ReceivingDate,SenderId,ReceiverId,BranchId,Status")] Percel percel)
-        //{
-        //    if (id != percel.Id)
-        //    {
-        //        return NotFound();
-        //    }
-
-        //    if (ModelState.IsValid)
-        //    {
-        //        try
-        //        {
-        //            _context.Update(percel);
-        //            await _context.SaveChangesAsync();
-        //        }
-        //        catch (DbUpdateConcurrencyException)
-        //        {
-        //            if (!PercelExists(percel.Id))
-        //            {
-        //                return NotFound();
-        //            }
-        //            else
-        //            {
-        //                throw;
-        //            }
-        //        }
-        //        return RedirectToAction(nameof(Index));
-        //    }
-        //    ViewData["BranchId"] = new SelectList(_context.Branches, "Id", "Name", percel.BranchId);
-        //    ViewData["ReceiverId"] = new SelectList(_context.Receivers, "Id", "Name", percel.ReceiverId);
-        //    ViewData["SenderId"] = new SelectList(_context.Senders, "Id", "Name", percel.SenderId);
-        //    return View(percel);
-        //}
 
         // GET: Percels/Delete/5
         public async Task<IActionResult> Delete(int? id)
