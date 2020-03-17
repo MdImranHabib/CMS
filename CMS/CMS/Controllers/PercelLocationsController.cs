@@ -26,6 +26,30 @@ namespace CMS.Controllers
             return View(await applicationDbContext.ToListAsync());
         }
 
+        public IActionResult SearchPercelLocation()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult SearchPercelLocation(int? id)
+        {
+            if (id == null)
+            {
+                return Content("The id is null please input a valid id");
+            }
+
+            var percelLocation = _context.PercelLocation
+                .Include(p => p.Branch)
+                .Where(p => p.PercelId == id).ToList();
+            if (percelLocation == null)
+            {
+                return Content("There is no location for this product");
+            }
+
+            return View("Index", percelLocation);
+        }
+
         // GET: PercelLocations/Details/5
         public async Task<IActionResult> Details(int? id)
         {

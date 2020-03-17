@@ -2,17 +2,20 @@
 
 @{
     ViewData["Title"] = "Index";
-    Layout = "~/Views/Shared/AdminLayout.cshtml";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var serial = 1;
 }
 
-<h2>Index</h2>
+<div class="well">
+    <h4 class="alert bg-primary text-center">Percel Locations</h4>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
+    <table class="table table-bordered table-hover table-condensed">
+        <thead>
+            <tr class="bg-primary">
+                <th>SL No.</th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Branch)
+                </th>
                 <th>
                     @Html.DisplayNameFor(model => model.PercelId)
                 </th>
@@ -20,35 +23,53 @@
                     @Html.DisplayNameFor(model => model.Status)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.ReceivingDate)
+                    @*@Html.DisplayNameFor(model => model.ReceivingDate)*@
+                    Date
                 </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Branch)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.PercelId)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Status)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ReceivingDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Branch.Address)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                if (serial % 2 == 0)
+                {
+                    <tr class="warning">
+                        <td>@serial</td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Branch.Address)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.PercelId)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Status)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ReceivingDate)
+                        </td>
+                    </tr>
+                }
+                else
+                {
+                    <tr class="success">
+                        <td>@serial</td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Branch.Address)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.PercelId)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Status)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ReceivingDate)
+                        </td>
+                    </tr>
+                }
+
+                serial++;
+            }
+        </tbody>
+    </table>
+</div>

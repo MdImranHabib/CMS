@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using CMS.Data;
 using CMS.Models;
 using Microsoft.AspNetCore.Http;
+using CMS.Models.ViewModels;
 
 namespace CMS.Controllers
 {
@@ -25,13 +26,66 @@ namespace CMS.Controllers
         {
             var employeeId = HttpContext.Session.GetInt32("employeeId");
             var employee = _context.Employees.FirstOrDefault(e => e.Id == employeeId);
-
-            var percels = _context.Percels
+            
+           ViewBag.Percels =await _context.Percels
                 .Include(p => p.Branch)
                 .Include(p => p.Receiver)
                 .Include(p => p.Sender)
-                .Where(p => p.BranchId == employee.BranchId);
-            return View(await percels.ToListAsync());
+                .Where(p => p.BranchId == employee.BranchId && p.Status == "Received").ToListAsync();
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Index(int? id)
+        {
+            var employeeId = HttpContext.Session.GetInt32("employeeId");
+            var employee = _context.Employees.FirstOrDefault(e => e.Id == employeeId);
+
+            if (id == null)
+            {
+                ViewBag.Percels = await _context.Percels
+                .Include(p => p.Branch)
+                .Include(p => p.Receiver)
+                .Include(p => p.Sender)
+                .Where(p => p.BranchId == employee.BranchId && p.Status == "Received").ToListAsync();
+                return View();
+            }
+
+            var percel = await _context.Percels.SingleOrDefaultAsync(m => m.Id == id);
+            if (percel == null)
+            {
+                ViewBag.Percels = await _context.Percels
+                .Include(p => p.Branch)
+                .Include(p => p.Receiver)
+                .Include(p => p.Sender)
+                .Where(p => p.BranchId == employee.BranchId && p.Status == "Received").ToListAsync();
+                return View();
+            }
+
+            percel.BranchId = employee.BranchId;
+            percel.Status = "Received";
+
+            _context.Update(percel);
+            await _context.SaveChangesAsync();
+
+            PercelLocation percelLocation = new PercelLocation()
+            {
+                PercelId = percel.Id,
+                BranchId = employee.BranchId,
+                Status = "Received",
+                ReceivingDate = System.DateTime.Now
+            };
+
+            _context.Add(percelLocation);
+            await _context.SaveChangesAsync();
+
+            ViewBag.Percels = await _context.Percels
+                 .Include(p => p.Branch)
+                 .Include(p => p.Receiver)
+                 .Include(p => p.Sender)
+                 .Where(p => p.BranchId == employee.BranchId && p.Status == "Received").ToListAsync();
+
+            return View();
         }
 
         // GET: Percels/Details/5
@@ -56,32 +110,32 @@ namespace CMS.Controllers
         }
 
         // GET: Percels/Create
-        public IActionResult Create()
-        {
-            ViewData["BranchId"] = new SelectList(_context.Branches, "Id", "Name");
-            ViewData["ReceiverId"] = new SelectList(_context.Receivers, "Id", "Name");
-            ViewData["SenderId"] = new SelectList(_context.Senders, "Id", "Name");
-            return View();
-        }
+        //public IActionResult Create()
+        //{
+        //    ViewData["BranchId"] = new SelectList(_context.Branches, "Id", "Name");
+        //    ViewData["ReceiverId"] = new SelectList(_context.Receivers, "Id", "Name");
+        //    ViewData["SenderId"] = new SelectList(_context.Senders, "Id", "Name");
+        //    return View();
+        //}
 
-        // POST: Percels/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Weight,Cost,ReceivingDate,SenderId,ReceiverId,BranchId,Status")] Percel percel)
-        {
-            if (ModelState.IsValid)
-            {
-                _context.Add(percel);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
-            }
-            ViewData["BranchId"] = new SelectList(_context.Branches, "Id", "Name", percel.BranchId);
-            ViewData["ReceiverId"] = new SelectList(_context.Receivers, "Id", "Name", percel.ReceiverId);
-            ViewData["SenderId"] = new SelectList(_context.Senders, "Id", "Name", percel.SenderId);
-            return View(percel);
-        }
+        //// POST: Percels/Create
+        //// To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        //// more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public async Task<IActionResult> Create([Bind("Id,Weight,Cost,ReceivingDate,SenderId,ReceiverId,BranchId,Status")] Percel percel)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        _context.Add(percel);
+        //        await _context.SaveChangesAsync();
+        //        return RedirectToAction(nameof(Index));
+        //    }
+        //    ViewData["BranchId"] = new SelectList(_context.Branches, "Id", "Name", percel.BranchId);
+        //    ViewData["ReceiverId"] = new SelectList(_context.Receivers, "Id", "Name", percel.ReceiverId);
+        //    ViewData["SenderId"] = new SelectList(_context.Senders, "Id", "Name", percel.SenderId);
+        //    return View(percel);
+        //}
 
         // GET: Percels/Edit/5
         public async Task<IActionResult> Edit(int? id)
@@ -140,6 +194,72 @@ namespace CMS.Controllers
             return View(percel);
         }
 
+        public IActionResult ReceivePercelfromUser()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> ReceivePercelfromUser([Bind("SenderName,SenderAddress,SenderEmail,SenderContact,ReceiverName,ReceiverAddress,ReceiverEmail,ReceiverContact,Weight,Cost")] PercelReceive percelReceive)
+        {
+            if (ModelState.IsValid)
+            {
+                Sender sender = new Sender()
+                {
+                    Name = percelReceive.SenderName,
+                    Address = percelReceive.SenderAddress,
+                    Email = percelReceive.SenderEmail,
+                    Contact = percelReceive.SenderContact
+                };
+
+                _context.Add(sender);
+                await _context.SaveChangesAsync();
+
+                Receiver receiver = new Receiver()
+                {
+                    Name = percelReceive.ReceiverName,
+                    Address = percelReceive.ReceiverAddress,
+                    Email = percelReceive.ReceiverEmail,
+                    Contact = percelReceive.ReceiverContact
+
+                };
+
+                _context.Add(receiver);
+                await _context.SaveChangesAsync();
+
+                var employeeId = HttpContext.Session.GetInt32("employeeId");
+                var employee = _context.Employees.FirstOrDefault(e => e.Id == employeeId);
+                Percel percel = new Percel()
+                {
+                    Weight = percelReceive.Weight,
+                    Cost = percelReceive.Cost,
+                    ReceivingDate = System.DateTime.Now,
+                    SenderId = sender.Id,
+                    ReceiverId = receiver.Id,
+                    BranchId = employee.BranchId,
+                    Status = "Received"
+                };
+
+                _context.Add(percel);
+                await _context.SaveChangesAsync();
+
+                PercelLocation percelLocation = new PercelLocation()
+                {
+                    PercelId = percel.Id,
+                    BranchId = employee.BranchId,
+                    Status = "Received",
+                    ReceivingDate = System.DateTime.Now
+                };
+
+                _context.Add(percelLocation);
+                await _context.SaveChangesAsync();
+
+                return RedirectToAction(nameof(Report));
+            }
+            return View(percelReceive);
+        }
+
         public async Task<IActionResult> Deliver(int? id)
         {
             if (id == null)
@@ -156,6 +276,17 @@ namespace CMS.Controllers
             percel.Status = "Delivered";
 
             _context.Update(percel);
+            await _context.SaveChangesAsync();
+
+            PercelLocation percelLocation = new PercelLocation()
+            {
+                PercelId = percel.Id,
+                BranchId = percel.BranchId,
+                Status = "Delivered",
+                ReceivingDate = System.DateTime.Now
+            };
+
+            _context.Add(percelLocation);
             await _context.SaveChangesAsync();
 
             return RedirectToAction("Index");
@@ -191,6 +322,11 @@ namespace CMS.Controllers
             _context.Percels.Remove(percel);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
+        }
+
+        public IActionResult Report()
+        {
+            return View();
         }
 
         private bool PercelExists(int id)
