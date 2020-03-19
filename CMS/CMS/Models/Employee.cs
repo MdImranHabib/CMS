@@ -12,7 +12,7 @@ namespace CMS.Models
         public int Id { get; set; }
 
         [Required]
-        [StringLength(70, ErrorMessage = "Employee name can't be greater than 70 characters")]
+        [StringLength(50, ErrorMessage = "Employee name can't be greater than 50 characters")]
         public string Name { get; set; }
 
         [Required]
@@ -30,9 +30,11 @@ namespace CMS.Models
         [Required]
         [Phone]
         [DataType(DataType.PhoneNumber)]
+        [StringLength(17, ErrorMessage ="Contact number can't be greater than 17 characters")]
         public string Contact { get; set; }
 
         [Required]
+        [Display(Name="Branch")]
         public int BranchId { get; set; }
 
         public virtual Branch Branch { get; set; }

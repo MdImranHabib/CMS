@@ -5,11 +5,20 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using CMS.Models;
+using Microsoft.AspNetCore.Http;
+using CMS.Data;
 
 namespace CMS.Controllers
 {
     public class HomeController : Controller
     {
+        private readonly ApplicationDbContext _context;
+
+        public HomeController(ApplicationDbContext context)
+        {
+            _context = context;
+        }
+
         public IActionResult Index()
         {
             return View();
@@ -31,6 +40,13 @@ namespace CMS.Controllers
 
         public IActionResult Dashboard()
         {
+            var employeeId = HttpContext.Session.GetInt32("employeeId");
+            var employee = _context.Employees.FirstOrDefault(e => e.Id == employeeId);
+
+            ViewBag.employeeName = employee.Name;
+            ViewBag.totalPercel = _context.Percels.Count(p => p.BranchId == employee.BranchId && p.Status == "Received");
+            ViewBag.totalEmployee = _context.Employees.Count(e => e.BranchId == employee.BranchId);
+
             return View();
         }
 

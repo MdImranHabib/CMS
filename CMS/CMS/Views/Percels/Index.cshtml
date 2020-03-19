@@ -52,33 +52,26 @@
                 if (serial % 2 == 0)
                 {
                     <tr class="warning">
-                        <td>@serial</td>
+                        <td>@serial.</td>
                         <td>
-                            @*@Html.DisplayFor(modelItem => item.Sender.Address)*@
                             @item.Sender.Name
                         </td>
                         <td>
-                            @*@Html.DisplayFor(modelItem => item.Receiver.Address)*@
                             @item.Receiver.Name
                         </td>
                         <td>
-                            @*@Html.DisplayFor(modelItem => item.Branch.Address)*@
                             @item.Branch.Name
                         </td>
                         <td>
-                            @*@Html.DisplayFor(modelItem => item.ReceivingDate)*@
                             @item.ReceivingDate
                         </td>
                         <td>
-                            @*@Html.DisplayFor(modelItem => item.Weight)*@
                             @item.Weight
                         </td>
                         <td>
-                            @*@Html.DisplayFor(modelItem => item.Cost)*@
                             @item.Cost
                         </td>
                         <td>
-                            @*@Html.DisplayFor(modelItem => item.Status)*@
                             @item.Status
                         </td>
                         <td>
@@ -91,7 +84,7 @@
                 else
                 {
                     <tr class="success">
-                        <td>@serial</td>
+                        <td>@serial.</td>
                         <td>
                             @item.Sender.Name
                         </td>

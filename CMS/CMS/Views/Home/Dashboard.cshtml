@@ -3,5 +3,25 @@
 }
 
 <div class="well">
-    <h2 class="text-info text-center">Welcome To Dashboard</h2>
+    <div class="well" style="background-color:#003366">
+        <h4 class="text-capitalize text-center" style="color:whitesmoke">
+            Welcome! <strong style="color:orangered">@ViewBag.employeeName</strong> to
+            <strong style="color:lawngreen">Courier Management System</strong>
+            <strong style="color:white; float:right">@System.DateTime.Now</strong>
+        </h4>
+    </div>
+    <div class="row">
+        <div class="col-sm-6">
+            <div class="well" style="background-color:#cc0000;">
+                <h4 class="text-center"><a asp-action="Index" asp-controller="Percels" style="color:black">Total Percels</a></h4>
+                <h4 class="text-center">@ViewBag.totalPercel</h4>
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="well" style="background-color:dodgerblue">
+                <h4 class="text-center"><a asp-action="Index" asp-controller="Employees" style="color:black">Total Employees</a></h4>
+                <h4 class="text-center">@ViewBag.totalEmployee</h4>
+            </div>
+        </div>
+    </div>
 </div>

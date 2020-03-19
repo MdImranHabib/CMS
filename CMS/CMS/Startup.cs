@@ -40,7 +40,7 @@ namespace CMS
             services.AddDistributedMemoryCache();
             services.AddSession(option =>
             {
-                option.IdleTimeout = TimeSpan.FromMinutes(5);
+                option.IdleTimeout = TimeSpan.FromMinutes(30);
             });
         }
 

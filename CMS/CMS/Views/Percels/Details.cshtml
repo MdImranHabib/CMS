@@ -5,57 +5,113 @@
     Layout = "~/Views/Shared/AdminLayout.cshtml";
 }
 
-<h2>Details</h2>
-
-<div>
-    <h4>Percel</h4>
+<div class="well">
+    <h4 class="alert bg-primary text-center">Percel Details Information</h4>
+    <div class="row">
+        <hr />
+        <div class="col-md-4">
+            <h5 class="alert bg-info text-center">Sender Information</h5>
+            <dl class="dl-horizontal">
+                <dt>
+                    @Html.DisplayNameFor(model => model.Sender.Name) :
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Sender.Name)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Sender.Address) :
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Sender.Address)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Sender.Email) :
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Sender.Email)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Sender.Contact) :
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Sender.Contact)
+                </dd>
+            </dl>
+        </div>
+        <div class="col-md-4">
+            <h5 class="alert bg-info text-center">Receiver Information</h5>
+            <dl class="dl-horizontal">
+                <dt>
+                    @Html.DisplayNameFor(model => model.Receiver.Name) :
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Receiver.Name)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Receiver.Address) :
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Receiver.Address)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Receiver.Email) :
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Receiver.Email)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Receiver.Contact) :
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Receiver.Contact)
+                </dd>
+            </dl>
+        </div>
+        <div class="col-md-4">
+            <h5 class="alert bg-info text-center">Percel Information</h5>
+            <dl class="dl-horizontal">
+                <dt>
+                    @Html.DisplayNameFor(model => model.Id) :
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Id)
+                </dd>
+                <dt>
+                    Branch Name :
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Branch.Name)
+                </dd>
+                <dt>
+                    Branch Address :
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Branch.Address)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Weight) :
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Weight) Kg.
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Cost) :
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Cost) Tk.
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.ReceivingDate) :
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.ReceivingDate)
+                </dd>
+            </dl>
+        </div>
+    </div>
     <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Weight)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Weight)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Cost)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Cost)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.ReceivingDate)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.ReceivingDate)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Status)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Status)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Branch)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Branch.Address)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Receiver)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Receiver.Address)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Sender)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Sender.Address)
-        </dd>
-    </dl>
-</div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+    <div>
+        <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning btn-xs">Edit</a> 
+        <a asp-action="Index" class="btn btn-primary btn-xs">Back to List</a>
+    </div>
 </div>

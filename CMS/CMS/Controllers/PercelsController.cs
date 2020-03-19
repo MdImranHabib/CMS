@@ -151,8 +151,8 @@ namespace CMS.Controllers
                 return NotFound();
             }
             ViewData["BranchId"] = new SelectList(_context.Branches, "Id", "Name", percel.BranchId);
-            ViewData["ReceiverId"] = new SelectList(_context.Receivers, "Id", "name", percel.ReceiverId);
-            ViewData["SenderId"] = new SelectList(_context.Senders, "Id", "name", percel.SenderId);
+            ViewData["ReceiverId"] = new SelectList(_context.Receivers, "Id", "Name", percel.ReceiverId);
+            ViewData["SenderId"] = new SelectList(_context.Senders, "Id", "Name", percel.SenderId);
             return View(percel);
         }
 

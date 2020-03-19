@@ -11,9 +11,11 @@ namespace CMS.Models
         public int Id { get; set; }
 
         [Required]
+        [Display(Name ="Branch")]
         public int BranchId { get; set; }
 
         [Required]
+        [Display(Name ="Percel Id")]
         public int PercelId { get; set; }
 
         [Required]
@@ -23,6 +25,7 @@ namespace CMS.Models
         [Required]
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:MMMM dd, yyyy}")]
+        [Display(Name = "Receiving Date")]
         public DateTime ReceivingDate { get; set; }
 
         public Branch Branch { get; set; }

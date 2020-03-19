@@ -11,14 +11,14 @@ namespace CMS.Models
         public int Id { get; set; }
 
         [Required]
-        [StringLength(70, ErrorMessage = "Sender name can't be greater than 70 characters")]
+        [StringLength(50, ErrorMessage = "Sender name can't be greater than 50 characters")]
         public string Name { get; set; }
 
         [Required]
         [StringLength(150, ErrorMessage = "Address can't be greater than 150 characters")]
         public string Address { get; set; }
 
-        [Required]
+        
         [EmailAddress]
         [DataType(DataType.EmailAddress)]
         public string Email { get; set; }
@@ -26,6 +26,7 @@ namespace CMS.Models
         [Required]
         [Phone]
         [DataType(DataType.PhoneNumber)]
+        [StringLength(17, ErrorMessage = "Contact number can't be greater than 17 characters")]
         public string Contact { get; set; }
     }
 }

@@ -8,6 +8,7 @@ namespace CMS.Models
 {
     public class Percel
     {
+        [Display(Name ="Percel Id")]
         public int Id { get; set; }
 
         [Required]
@@ -21,15 +22,19 @@ namespace CMS.Models
         [Required]
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:MMMM dd, yyyy}")]
+        [Display(Name = "Receiving Date")]
         public DateTime ReceivingDate { get; set; }
 
         [Required]
+        [Display(Name ="Sender")]
         public int SenderId { get; set; }
 
         [Required]
+        [Display(Name ="Receiver")]
         public int ReceiverId { get; set; }
 
         [Required]
+        [Display(Name ="Branch")]
         public int BranchId { get; set; }
 
         [Required]
