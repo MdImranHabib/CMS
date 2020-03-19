@@ -1,8 +1,130 @@
-﻿
+﻿@model CMS.Models.Percel
 @{
     ViewData["Title"] = "Report";
     Layout = "~/Views/Shared/AdminLayout.cshtml";
 }
 
-<h2>Report</h2>
+<div class="well">
+    <h3 class="alert bg-primary text-center">Percel Receipt</h3>
+    <div id="print">
+        <div>
+            <h4 class="text-center">ABC Courier Service</h4>
+            <hr />
+            <address><i class="glyphicon glyphicon-map-marker"></i><strong>Address:</strong> @Model.Branch.Address</address>
+            <p><i class="glyphicon glyphicon-phone-alt"></i><strong> Contact No: </strong> @Model.Branch.Contact</p>
+            <p><i class="glyphicon glyphicon-envelope"></i><strong> Email: </strong>@Model.Branch.Email</p>
+        </div>
+        <hr />
+        <h5 class="text-center">Customer Copy</h5>
+        <table>
+            <tr class="row">
+                <th class="col-md-4"><h5 class="alert bg-info text-center">Sender Information</h5></th>
+                <th class="col-md-4"><h5 class="alert bg-info text-center">Receiver Information</h5></th>
+                <th class="col-md-4"><h5 class="alert bg-info text-center">Percel Information</h5></th>
+            </tr>
+            <tr class="row">
+                <td class="col-md-4">
+                    <table>
+                        <tr><th>Name: </th><td> @Model.Sender.Name</td></tr>
+                        <tr><th>Address: </th><td> @Model.Sender.Address</td></tr>
+                        <tr><th>Email: </th><td>  @Model.Sender.Email</td></tr>
+                        <tr><th>Contact: </th><td> @Model.Sender.Contact</td></tr>
+                    </table>
+                </td>
+                <td class="col-md-4">
+                    <table>
+                        <tr><th>Name: </th><td> @Model.Receiver.Name</td></tr>
+                        <tr><th>Address: </th><td> @Model.Receiver.Address</td></tr>
+                        <tr><th>Email: </th><td>  @Model.Receiver.Email</td></tr>
+                        <tr><th>Contact: </th><td> @Model.Receiver.Contact</td></tr>
+                    </table>
+                </td>
+                <td class="col-md-4">
+                    <table>
+                        <tr><th>Percel Id: </th><td> @Model.Id</td></tr>
+                        <tr><th>Weight: </th><td> @Model.Weight</td></tr>
+                        <tr><th>Cost: </th><td>  @Model.Cost</td></tr>
+                        <tr><th>Receiving Date: </th><td> @Model.ReceivingDate</td></tr>
+                    </table>
+                </td>
+            </tr>
+            <tr class="row">
+                <td class="col-md-4">
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    <div>
+                        <p>-------------------------------------------</p>
+                        <p>Authorized Signature</p>
+                    </div>
+                </td>
+            </tr>
+        </table>
+        <hr />
+        <h5 class="text-center">Office Copy</h5>
+        <table>
+            <tr class="row">
+                <th class="col-md-4"><h5 class="alert bg-info text-center">Sender Information</h5></th>
+                <th class="col-md-4"><h5 class="alert bg-info text-center">Receiver Information</h5></th>
+                <th class="col-md-4"><h5 class="alert bg-info text-center">Percel Information</h5></th>
+            </tr>
+            <tr class="row">
+                <td class="col-md-4">
+                    <table>
+                        <tr><th>Name: </th><td> @Model.Sender.Name</td></tr>
+                        <tr><th>Address: </th><td> @Model.Sender.Address</td></tr>
+                        <tr><th>Email: </th><td>  @Model.Sender.Email</td></tr>
+                        <tr><th>Contact: </th><td> @Model.Sender.Contact</td></tr>
+                    </table>
+                </td>
+                <td class="col-md-4">
+                    <table>
+                        <tr><th>Name: </th><td> @Model.Receiver.Name</td></tr>
+                        <tr><th>Address: </th><td> @Model.Receiver.Address</td></tr>
+                        <tr><th>Email: </th><td>  @Model.Receiver.Email</td></tr>
+                        <tr><th>Contact: </th><td> @Model.Receiver.Contact</td></tr>
+                    </table>
+                </td>
+                <td class="col-md-4">
+                    <table>
+                        <tr><th>Percel Id: </th><td> @Model.Id</td></tr>
+                        <tr><th>Weight: </th><td> @Model.Weight</td></tr>
+                        <tr><th>Cost: </th><td>  @Model.Cost</td></tr>
+                        <tr><th>Receiving Date: </th><td> @Model.ReceivingDate</td></tr>
+                    </table>
+                </td>
+            </tr>
+            <tr class="row">
+                <td class="col-md-4">
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    <div>
+                        <p>-------------------------------------------</p>
+                        <p>Authorized Signature</p>
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div>
+        <a asp-action="Index" class="btn btn-primary">Back to List</a>
+        <button id="pbtn" class="btn btn-success" onclick="printdiv('print');">Print</button>
+    </div>
+</div>
+
+<script language="javascript">
+    function printdiv(printpage) {
+        var newstr = document.all.item(printpage).innerHTML;
+        var oldstr = document.body.innerHTML;
+        document.body.innerHTML = newstr;
+        window.print();
+        document.body.innerHTML = oldstr;
+        return false;
+    }
+</script>
 

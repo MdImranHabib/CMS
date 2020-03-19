@@ -255,7 +255,7 @@ namespace CMS.Controllers
                 _context.Add(percelLocation);
                 await _context.SaveChangesAsync();
 
-                return RedirectToAction(nameof(Report));
+                return RedirectToAction("Report", percel);
             }
             return View(percelReceive);
         }
@@ -324,9 +324,25 @@ namespace CMS.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        public IActionResult Report()
+        public async Task<IActionResult> Report(Percel percel)
         {
-            return View();
+            if(percel == null)
+            {
+                return Content("There is no Percel Received!");
+            }
+
+            var aPercel = await _context.Percels
+                .Include(p => p.Branch)
+                .Include(p => p.Sender)
+                .Include(p => p.Receiver)
+                .SingleOrDefaultAsync(p => p.Id == percel.Id);
+
+            if(aPercel == null)
+            {
+                return Content("There is no Percel Received!");
+            }
+
+            return View(aPercel);
         }
 
         private bool PercelExists(int id)
