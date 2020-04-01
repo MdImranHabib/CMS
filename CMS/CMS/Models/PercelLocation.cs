@@ -29,5 +29,7 @@ namespace CMS.Models
         public DateTime ReceivingDate { get; set; }
 
         public Branch Branch { get; set; }
+
+        public Percel Percel { get; set; }
     }
 }

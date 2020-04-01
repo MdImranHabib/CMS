@@ -14,10 +14,11 @@
             <tr class="bg-primary">
                 <th>SL No.</th>
                 <th>
-                    @Html.DisplayNameFor(model => model.Branch)
+                    @*@Html.DisplayNameFor(model => model.Percel)*@
+                    Percel Code
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.PercelId)
+                    @Html.DisplayNameFor(model => model.Branch)
                 </th>
                 <th>
                     @Html.DisplayNameFor(model => model.Status)
@@ -35,12 +36,12 @@
                 {
                     <tr class="warning">
                         <td>@serial</td>
+                         <td>
+                            @Html.DisplayFor(modelItem => item.Percel.Code)
+                        </td>
                         <td>
                             @Html.DisplayFor(modelItem => item.Branch.Address)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.PercelId)
-                        </td>
+                        </td>                      
                         <td>
                             @Html.DisplayFor(modelItem => item.Status)
                         </td>
@@ -54,10 +55,10 @@
                     <tr class="success">
                         <td>@serial</td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.Branch.Address)
+                            @Html.DisplayFor(modelItem => item.Percel.Code)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.PercelId)
+                            @Html.DisplayFor(modelItem => item.Branch.Address)
                         </td>
                         <td>
                             @Html.DisplayFor(modelItem => item.Status)

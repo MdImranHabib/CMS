@@ -12,6 +12,10 @@ namespace CMS.Models
         public int Id { get; set; }
 
         [Required]
+        [Display(Name = "Percel Code")]
+        public string Code { get; set; }
+
+        [Required]
         [Range(0.0, double.MaxValue, ErrorMessage ="weight can't be negative")]
         public double Weight { get; set; }
 

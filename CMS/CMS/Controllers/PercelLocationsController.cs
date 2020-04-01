@@ -32,16 +32,19 @@ namespace CMS.Controllers
         }
 
         [HttpPost]
-        public IActionResult SearchPercelLocation(int? id)
+        public IActionResult SearchPercelLocation(string Code)
         {
-            if (id == null)
+            if (Code == null)
             {
-                return Content("The id is null please input a valid id");
+                return Content("The percel code is null please input a valid code");
             }
+
+            var percel = _context.Percels.FirstOrDefault(p => p.Code == Code);
 
             var percelLocation = _context.PercelLocation
                 .Include(p => p.Branch)
-                .Where(p => p.PercelId == id).ToList();
+                .Include(p => p.Percel)
+                .Where(p => p.PercelId == percel.Id).ToList();
             if (percelLocation == null)
             {
                 return Content("There is no location for this product");

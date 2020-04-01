@@ -12,16 +12,19 @@
     <hr />
     <form asp-action="Index" class="form-inline">
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-        <label asp-for="Id" class="control-label">Percel ID :</label>
-        <input asp-for="Id" class="form-control" placeholder="Enter percel ID" />
+        <label asp-for="Code" class="control-label">Percel Code :</label>
+        <input asp-for="Code" class="form-control" placeholder="Enter percel Code" />
         <input type="submit" value="Receive" class="btn btn-success form-control" />
-        <span asp-validation-for="Id" class="text-danger"></span>
+        <span asp-validation-for="Code" class="text-danger"></span>
     </form>
     <hr />
     <table class="table table-bordered table-hover table-condensed" id="myTable">
         <thead>
             <tr class="bg-primary">
                 <th>SL No.</th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Code)
+                </th>
                 <th>
                     @Html.DisplayNameFor(model => model.Sender)
                 </th>
@@ -35,10 +38,10 @@
                     @Html.DisplayNameFor(model => model.ReceivingDate)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.Weight)
+                    @Html.DisplayNameFor(model => model.Weight) (Kg.)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.Cost)
+                    @Html.DisplayNameFor(model => model.Cost) (Tk.)
                 </th>
                 <th>
                     @Html.DisplayNameFor(model => model.Status)
@@ -53,6 +56,9 @@
                 {
                     <tr class="warning">
                         <td>@serial.</td>
+                        <td>
+                            @item.Code
+                        </td>
                         <td>
                             @item.Sender.Name
                         </td>
@@ -85,6 +91,9 @@
                 {
                     <tr class="success">
                         <td>@serial.</td>
+                        <td>
+                            @item.Code
+                        </td>
                         <td>
                             @item.Sender.Name
                         </td>

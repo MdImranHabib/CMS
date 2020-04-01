@@ -36,12 +36,12 @@ namespace CMS.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Index(int? id)
+        public async Task<IActionResult> Index(string Code)
         {
             var employeeId = HttpContext.Session.GetInt32("employeeId");
             var employee = _context.Employees.FirstOrDefault(e => e.Id == employeeId);
 
-            if (id == null)
+            if (Code == null)
             {
                 ViewBag.Percels = await _context.Percels
                 .Include(p => p.Branch)
@@ -51,7 +51,7 @@ namespace CMS.Controllers
                 return View();
             }
 
-            var percel = await _context.Percels.SingleOrDefaultAsync(m => m.Id == id);
+            var percel = await _context.Percels.SingleOrDefaultAsync(p => p.Code == Code);
             if (percel == null)
             {
                 ViewBag.Percels = await _context.Percels
@@ -232,6 +232,7 @@ namespace CMS.Controllers
                 var employee = _context.Employees.FirstOrDefault(e => e.Id == employeeId);
                 Percel percel = new Percel()
                 {
+                    Code = GetPercelCode(employee),
                     Weight = percelReceive.Weight,
                     Cost = percelReceive.Cost,
                     ReceivingDate = System.DateTime.Now,
@@ -258,6 +259,25 @@ namespace CMS.Controllers
                 return RedirectToAction("Report", percel);
             }
             return View(percelReceive);
+        }
+
+        private string GetPercelCode(Employee employee)
+        {
+            var currentYear = System.DateTime.Now.Year;
+
+            var percelCount = _context.Percels.Count(x => (x.BranchId == employee.BranchId) && (x.ReceivingDate.Year == currentYear)) + 1;
+
+            var branch = _context.Branches.FirstOrDefault(x => x.Id == employee.BranchId);
+
+            string leadingZero = "";
+            int length = 3 - percelCount.ToString().Length;
+            for (int i = 0; i < length; i++)
+            {
+                leadingZero += "0";
+            }
+
+            string percelCodeNo = branch.Name + "-" + currentYear + "-" + leadingZero + percelCount;
+            return percelCodeNo;
         }
 
         public async Task<IActionResult> Deliver(int? id)
