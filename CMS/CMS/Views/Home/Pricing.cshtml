@@ -1,9 +1,11 @@
-﻿@{
-    ViewData["Title"] = "Contact";
+﻿
+@{
+    ViewData["Title"] = "Pricing";
     Layout = "~/Views/Shared/IndexLayout.cshtml";
 }
 
 <div id="preloader"></div>
+
 <section class="about-us">
     <div class="logo_menu" id="sticker">
         <div class="container">
@@ -37,49 +39,91 @@
     </div>
 </section>
 
-<!--    start contact page content-->
-<section class="contact-page-area">
+<!--    start pricing area-->
+<!-- Pricing Area -->
+<section class="pricing-area version-6" id="pricing">
     <div class="container">
-        <div class="row">
-            <div class="col-md-6 col-sm-6 col-xs-6 text-left">
-                <div class="about_us_content_title">
-                    <h2>contact us</h2>
-                    <h5>no about us more</h5>
+        <div class="row page-title">
+            <div class="col-md-5 col-sm-6">
+                <div class="pricing-desc section-padding-two">
+                    <div class="pricing-desc-title">
+                        <div class="title">
+                            <h2>Pricing & plans</h2>
+                            <p>Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat,</p>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="col-md-6 col-sm-6 col-xs-6 text-right">
                 <div class="about_us_content_title">
                     <ul class="breadcrumbs">
                         <li><a href="#">home</a></li>
-                        <li><a href="#">contact</a></li>
+                        <li><a href="#">pricing</a></li>
                     </ul>
                 </div>
             </div>
         </div>
         <div class="row">
-            <div class="col-md-6 col-sm-6">
-                <div class="contact-form">
-                    <h2 class="contact_page_headings">Send us a message</h2>
-                    <form method="post" action="http://crazycafe.net">
-                        <input type="text" name="username" placeholder="Your name">
-                        <input type="email" name="email_address" placeholder="Email address">
-                        <input type="text" name="subject" placeholder="Subject">
-                        <textarea name="messages" placeholder="Message"></textarea>
-                        <input type="submit" name="submit" value="send">
-                    </form>
+            <div class="col-md-4 col-lg-4 col-sm-4 col-xs-12 text-center">
+                <div class="single-pricing-table">
+                    <div class="pricing-title">
+                        <h6>standard</h6>
+                        <h1>50$</h1>
+                        <h5>for a delivery</h5>
+                    </div>
+                    <ul class=price-list>
+                        <li>Full website maintance</li>
+                        <li>Free domain &amp; hosting</li>
+                        <li>High quality product</li>
+                        <li>24/7 Customer service</li>
+                    </ul>
+                    <div class="order-buton">
+                        <a href="#">order now</a>
+                    </div>
                 </div>
             </div>
-            <div class="col-md-5 col-md-offset-1 col-sm-6">
-                <div class="google-map">
-                    <div id="googleMap"></div>
+            <div class="col-md-4 col-lg-4 col-sm-4 col-xs-12 text-center">
+                <div class="single-pricing-table">
+                    <div class="pricing-title">
+                        <h6>premium</h6>
+                        <h1>250$</h1>
+                        <h5>for a delivery</h5>
+                    </div>
+                    <ul class=price-list>
+                        <li>Full website maintance</li>
+                        <li>Free domain &amp; hosting</li>
+                        <li>High quality product</li>
+                        <li>24/7 Customer service</li>
+                    </ul>
+                    <div class="order-buton">
+                        <a href="#">order now</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 col-lg-4 col-sm-4 col-xs-12 text-center">
+                <div class="single-pricing-table">
+                    <div class="pricing-title">
+                        <h6>Basic</h6>
+                        <h1>50$</h1>
+                        <h5>for a delivery</h5>
+                    </div>
+                    <ul class=price-list>
+                        <li>Full website maintance</li>
+                        <li>Free domain &amp; hosting</li>
+                        <li>High quality product</li>
+                        <li>24/7 Customer service</li>
+                    </ul>
+                    <div class="order-buton">
+                        <a href="#">order now</a>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </section>
-
-
+<!-- /.End Of Pricing Area -->
 <!--start footer area-->
+
 <section class="footer-area" id="contact">
     <div class="container">
         <div class="row">
@@ -117,6 +161,7 @@
         </div>
     </div>
 </section>
+
 <div class="copyright-area">
     <div class="container">
         <div class="col-xs-12 col-sm-6 col-md-6 text-left">
@@ -135,3 +180,5 @@
         </div>
     </div>
 </div>
+
+

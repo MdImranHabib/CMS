@@ -1,0 +1,634 @@
+/* Medium Layout: 1280px. */
+
+@media only screen and (min-width: 992px) and (max-width: 1200px) {
+    .menu li a,
+    .signup li a {
+        padding: 15px 25px 15px 0;
+    }
+    .carousel-caption {
+        left: 15%;
+    }
+    .menu li:last-child a {
+        padding-right: 3px;
+    }
+    .single_calculate label {
+        width: 100px;
+    }
+    .single_calculate > input {
+        width: 186px;
+    }
+    div.slider-navs {
+        left: 25%;
+    }
+    .pricing-slider .carousel {
+        overflow: visible;
+        width: 50%;
+    }
+    .pricing-slider li.slides {
+        opacity: 0;
+        filter: alpha(opacity=0);
+    }
+    .pricing-area li.slides.main-pos {
+        opacity: 1;
+        filter: alpha(opacity=100);
+    }
+}
+
+
+/* Tablet Layout: 768px. */
+
+@media only screen and (min-width: 768px) and (max-width: 991px) {
+    .navbar {
+        min-height: 30px;
+    }
+    .dropdownMenu li:last-child a {
+        left: -5px;
+        position: relative;
+    }
+    .logo {
+        padding: 4px 6px;
+    }
+    .menu li:last-child a {
+        padding-right: 4px;
+    }
+    .is-sticky #sticker {
+        padding: 5px 0;
+    }
+    .dropdown li:last-child a {
+        left: -5px;
+        position: relative;
+    }
+    .dropdown {
+        left: -145%;
+    }
+    .dropdown li a:hover {
+        color: #fff !important;
+    }
+    .slider-pricing .active {
+        opacity: 1;
+        padding: 10px 60px;
+    }
+    .active .single-pricing {
+        opacity: 1;
+        transform: scale(1);
+    }
+    .slider-div {
+        top: 0;
+    }
+    .pricing-plan-area {
+        height: 560px;
+        padding: 40px 0;
+        position: relative;
+    }
+    .carousel-caption {
+        left: 5%;
+    }
+    .pricing-slider .carousel {
+        margin: 0;
+        overflow: visible;
+        width: 55%;
+    }
+    .column-out {
+        height: 500px;
+        left: 0;
+        position: static;
+        width: 100%;
+        z-index: 999;
+    }
+    div.slider-navs {
+        bottom: 32%;
+        height: 50px;
+        left: 21.8%;
+        margin-left: 0;
+        top: auto;
+        width: 60%;
+    }
+    li.slides {
+        width: 321px;
+    }
+    div.slider-navs div.next-nav {
+        left: auto;
+        right: 0;
+    }
+    .pricing-area {
+        height: auto;
+        padding: 100px 0;
+    }
+    .pricing-area .table {
+        display: block;
+        height: auto;
+        position: static;
+    }
+    .pricing-area .cell {
+        display: block;
+    }
+    .column-out {
+        height: 500px;
+        position: static;
+    }
+    .calculat-image {
+        max-width: 50%;
+    }
+    .single_calculate > input {
+        width: 152px;
+    }
+    .single_calculate label {
+        width: 115px;
+    }
+    .calculate_option {
+        width: 65px;
+    }
+    .calculate_option.padding-riht {
+        margin-right: 63px;
+    }
+    .signup ul li:first-child a {
+        line-height: 32px;
+        padding: 0 15px 0 0;
+    }
+    .signup ul li:last-child a {
+        background: #f9bf3b none repeat scroll 0 0;
+        border-radius: 5px;
+        color: #fff;
+        padding: 6px 15px;
+        margin-top: 0;
+    }
+    .menu li a,
+    .signup li a {
+        font-size: 12px;
+        padding: 6px 15px 6px 0;
+        transition: all 0.4s ease 0s;
+    }
+    .item_icon {
+        float: none;
+        margin-bottom: 20px;
+        margin-right: auto;
+        text-align: center;
+        width: auto;
+    }
+    .about_single_item_content {
+        padding-left: 0;
+        text-align: center;
+    }
+    .about_us_area {
+        padding: 50px 0;
+    }
+    .about_car {
+        margin-top: 40px;
+    }
+    .calculate_area {
+        padding: 50px 0;
+    }
+    .client-area {
+        padding: 50px 0;
+    }
+    .single-footer > h2 {
+        font-size: 18px;
+    }
+    .single-footer {
+        font-size: 12px;
+    }
+    .pricing-area .single-pricing-table.slick-slide.slick-current {
+        box-shadow: 0 0 24px 2px rgba(0, 0, 0, 0.14);
+        opacity: 1;
+        transform: scale(1);
+        width: 320px !important;
+        z-index: 999;
+    }
+    .slick-list {
+        padding: 0px !important;
+    }
+}
+
+
+/* Mobile Layout: 320px. */
+
+@media only screen and (max-width: 767px) {
+    .welcome_form {
+        height: 45px;
+        width: 290px;
+    }
+    .dropdown li a:hover {
+        color: #fff !important;
+    }
+    .dropdownMenu {
+        opacity: 1;
+        position: static;
+        visibility: visible;
+        width: 100%;
+        background: transparent;
+    }
+    .dropdownMenu li {
+        margin-bottom: 9px;
+    }
+    .dropdownMenu li a {
+        color: #f9bf3b !important
+    }
+    .dropdownMenu li:first-child {
+        margin-top: 5px;
+    }
+    .nav.navbar-nav.navbar-right.menu {
+        text-align: left;
+    }
+    .dropdownMenu {
+        margin-left: 15%;
+        text-align: left;
+    }
+    .logo_menu {
+        top: 0;
+        z-index: 30;
+    }
+    .mean-container .mean-bar {
+        position: fixed;
+    }
+    .version2-hero .logo_menu {
+        top: 0;
+    }
+    .mean-container .mean-nav ul li a.mean-expand {
+        height: auto;
+        line-height: 1;
+        padding: 16px !important;
+        width: 6px;
+        z-index: 2;
+    }
+    .mean-container .mean-nav ul li a {
+        border-top: 1px solid rgba(255, 255, 255, 0.5);
+        line-height: 40px;
+        width: 90%;
+    }
+    .welcome_form .form-control {
+        font-size: 12px;
+        height: 47px;
+        padding-left: 15px;
+        width: 100%;
+    }
+    .about-us .is-sticky .logo {
+        padding: 14px 10px;
+    }
+    .is-sticky .logo > img {
+        margin-top: 0;
+    }
+    .navbar-toggle {
+        margin-top: 11px;
+        margin-bottom: 6px;
+    }
+    .is-sticky .navbar-toggle {
+        margin-top: 10px;
+    }
+    .submit {
+        font-size: 12px;
+        height: 80%;
+        top: 11%;
+        width: 150px;
+    }
+    .welcome_text > h1 {
+        font-size: 20px;
+        line-height: 22px;
+    }
+    .welcome_p {
+        margin-bottom: 30px;
+    }
+    .welcome_p > p {
+        font-size: 12px;
+        line-height: normal;
+    }
+    .signup {
+        display: none;
+    }
+    .signup ul li {
+        float: left;
+        width: 50%;
+    }
+    .nav.navbar-nav a {
+        padding: 5px 15px !important;
+    }
+    .navbar-toggle .icon-bar {
+        background: white none repeat scroll 0 0;
+    }
+    .about_us_area {
+        padding: 30px 0;
+    }
+    .about_us_content > h2 {
+        margin-bottom: 20px;
+    }
+    .about_us_content > a {
+        margin-top: 10px;
+    }
+    .about_us_content {
+        margin-bottom: 30px;
+    }
+    .single_count {
+        margin-bottom: 20px;
+    }
+    .single_count h1 {
+        font-size: 36px;
+    }
+    .single_count > h5 {
+        font-size: 12px;
+    }
+    .single_count::before {
+        display: none;
+    }
+    .calculat-image {
+        display: none;
+    }
+    .single_calculate > input {
+        width: 118px;
+    }
+    .single_calculate label {
+        font-size: 12px;
+        width: 90px;
+    }
+    .calculate_option.padding-riht {
+        margin-right: 15px;
+    }
+    .calculate_option.selectpadding::after {
+        left: 0;
+    }
+    .calculate_area {
+        padding: 30px 0;
+    }
+    .calculate_title > h2 {
+        font-size: 23px;
+        margin-bottom: 15px;
+    }
+    .calculate_title {
+        margin-bottom: 25px;
+    }
+    .client-area {
+        padding: 30px 0 0;
+    }
+    .slients-title > h2 {
+        font-size: 22px;
+        margin-bottom: 15px;
+    }
+    .slients-title {
+        padding-bottom: 20px;
+    }
+    .client-details {
+        font-size: 12px;
+    }
+    .single-clients:first-child {
+        margin-bottom: 30px;
+    }
+    .pricing-plan-area {
+        height: auto;
+        padding: 50px 0;
+    }
+    .slider-div {
+        position: relative;
+        width: 100%;
+    }
+    .pricing-details {
+        margin-top: 0;
+        font-size: 12px
+    }
+    .slider-pricing .active {
+        opacity: 1;
+        padding: 15px;
+    }
+    .active .single-pricing {
+        transform: scale(1);
+    }
+    .single-pricing-title {
+        margin-bottom: 20px;
+    }
+    .single-pricing {
+        line-height: normal;
+    }
+    .btn.btn-default {
+        margin-top: 20px;
+    }
+    .single-pricing-title > h1 {
+        margin-top: 20px;
+    }
+    .pricing-title {
+        font-size: 14px;
+        margin-bottom: 20px;
+    }
+    /*    pricing table css with new slider*/
+    .slider-div {
+        top: 0;
+    }
+    .pricing-plan-area {
+        height: 560px;
+        padding: 40px 0;
+        position: relative;
+    }
+    .carousel-caption {
+        left: 5%;
+    }
+    .pricing-slider .carousel {
+        margin: 0;
+        overflow: visible;
+        width: 55%;
+    }
+    .column-out {
+        height: 500px;
+        left: 0;
+        position: static;
+        width: 100%;
+        z-index: 999;
+    }
+    div.slider-navs {
+        bottom: 37%;
+        left: 0;
+        margin-left: 0;
+        top: auto;
+        width: 100%;
+    }
+    li.slides {
+        width: 321px;
+        z-index: -1
+    }
+    div.slider-navs div.next-nav {
+        left: auto;
+        right: 0;
+    }
+    .pricing-area .main-pos {
+        left: -28px;
+        transform: scale(1);
+        /*        width: 280px !important;*/
+        z-index: 5;
+    }
+    /*    end of pricing table css with new slider*/
+    .about_single_item {
+        font-size: 14px;
+        margin-bottom: 25px;
+    }
+    .about_top {
+        padding-bottom: 30px;
+        padding-top: 50px;
+    }
+    .about_single_item_content > h4 {
+        margin-bottom: 10px;
+    }
+    .footer-area {
+        padding: 30px 0;
+        text-align: center;
+        padding-bottom: 15px;
+    }
+    .single-footer {
+        margin-bottom: 30px;
+    }
+    .footer-text {
+        text-align: center;
+    }
+    .mobMenuCol {
+        position: absolute;
+        right: 0;
+        text-align: center;
+        top: 0;
+        width: 100%;
+        padding: 0
+    }
+    .logo {
+        padding: 11px 0;
+        position: relative;
+        z-index: 5;
+    }
+    .navbar-collapse {
+        background: rgba(34, 49, 63, 0.95);
+        border: 0;
+        box-shadow: none
+    }
+    .navbar-collapse.collapse.in a {
+        color: #fff;
+    }
+    .navbar-collapse.collapse.in a:hover {
+        color: #fff;
+    }
+    .navbar-collapse.collapse.in li.current-menu-item a {
+        color: #fff;
+    }
+    .submt-button {
+        float: none;
+    }
+    .welcome_form .form-control::-moz-placeholder {
+        font-size: 9px;
+    }
+    .menu li a::before {
+        display: none;
+    }
+    .menu li.current-menu-item a::before {
+        display: none;
+    }
+    .navbar-collapse a:hover {
+        color: #f9bf3b !important;
+    }
+    .pricing-area {
+        height: auto;
+        padding-bottom: 20px;
+    }
+    .table {
+        position: static;
+    }
+    .pricing-tables {
+        position: static;
+        width: 100% !important;
+    }
+    .btn-slick-prev {
+        left: 5% !important;
+        top: 50% !important;
+    }
+    .btn-slick-next {
+        left: auto !important;
+        right: 5% !important;
+        top: 50% !important;
+    }
+    .pricing-area .single-pricing-table.slick-slide.slick-current {
+        transform: scale(1);
+    }
+    .price {
+        margin-bottom: 15px;
+    }
+    .single-pricing-table.slick-slide {
+        margin-top: 20px;
+    }
+    .pricing-desc {
+        padding-top: 40px;
+    }
+    .single-hero-slider > h1 {
+        font-size: 20px;
+        line-height: 22px;
+    }
+    .title > h2 {
+        margin-bottom: 10px;
+    }
+    .title {
+        line-height: 20px;
+        margin-bottom: 15px !important;
+    }
+    .pricing-desc.section-padding-two {
+        font-size: 14px;
+        line-height: 22px;
+    }
+    .price-btn {
+        font-size: 11px;
+        padding: 10px 20px;
+    }
+    .version2-hero .table {
+        display: block;
+    }
+    .version2-hero .cell {
+        display: block;
+        padding-top: 50%;
+    }
+    .hero_area .carousel-caption {
+        bottom: 0;
+        color: #fff;
+        left: 5%;
+        padding-bottom: 0;
+        padding-top: 53px;
+        position: absolute;
+        right: 15%;
+        text-align: center;
+        text-shadow: 0 1px 2px rgba(0, 0, 0, 0.6);
+        z-index: 10;
+    }
+    .hero-theme .owl-nav div.owl-prev {
+        left: -15px;
+        width: 30px;
+    }
+    .hero-theme .owl-nav div.owl-next {
+        right: -15px;
+        width: 30px;
+    }
+    .Modern-Slider .item h5 {
+        font-size: 12px;
+    }
+    .Modern-Slider .item h1 {
+        font-size: 18px;
+    }
+    /*    contact page css*/
+    .about_us_content_title > h2 {
+        font-size: 18px;
+    }
+    .about_us_content_title h5 {
+        font-size: 12px;
+    }
+    .breadcrumbs li:first-child a {
+        margin-right: 4px;
+        padding-right: 10px;
+    }
+    .contact_page_headings {
+        font-size: 17px;
+        margin-bottom: 20px;
+    }
+    .about_us_area {
+        padding: 50px 0 30px;
+    }
+}
+
+
+/* Wide Mobile Layout: 480px. */
+
+@media only screen and (min-width: 480px) and (max-width: 767px) {
+    .pricing-area .main-pos {
+        left: 53px;
+        transform: scale(1);
+        z-index: 5;
+    }
+    .single_calculate > input {
+        width: 258px;
+    }
+}

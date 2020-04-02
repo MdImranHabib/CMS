@@ -50,6 +50,16 @@ namespace CMS.Controllers
             return View();
         }
 
+        public IActionResult Services()
+        {
+            return View();
+        }
+
+        public IActionResult Pricing()
+        {
+            return View();
+        }
+
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });

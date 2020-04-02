@@ -7,7 +7,42 @@
 
 @{
     ViewData["Title"] = "Log in";
+    Layout = "~/Views/Shared/IndexLayout.cshtml";
 }
+
+<div id="preloader"></div>
+<section class="about-us">
+    <div class="logo_menu" id="sticker">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-2 col-lg-2 col-sm-2 col-xs-6">
+                    <div class="logo">
+                        <a asp-controller="Home" asp-action="Index">@*<img src="img/logo.png" alt="logo">*@ <h3 style="color:white; font-weight:bold">CMS</h3></a>
+                    </div>
+                </div>
+                <div class="col-md-6 col-xs-6 col-md-offset-1 col-sm-7 col-lg-offset-1 col-lg-6 mobMenuCol">
+                    <nav class="navbar">
+                        <!-- Collect the nav links, forms, and other content for toggling -->
+                        <ul class="nav navbar-nav navbar-right menu">
+                            <li><a asp-controller="Home" asp-action="Index">Home</a></li>
+                            <li><a asp-controller="Home" asp-action="About">About</a></li>
+                            <li><a asp-controller="Home" asp-action="Services">Services</a></li>
+                            <li><a asp-controller="Home" asp-action="Pricing">Pricing</a></li>
+                            <li><a asp-controller="Home" asp-action="Contact">Contact</a></li>
+                        </ul>
+                        <!-- /.navbar-collapse -->
+                    </nav>
+                </div>
+                <div class="col-md-3 col-sm-3 col-xs-4 col-lg-3 signup">
+                    <ul class="nav navbar-nav">
+                        <li></li>
+                        <li><a asp-controller="Account" asp-action="Login">login</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
 
 <div class="well">
     <h2>@ViewData["Title"]</h2>
