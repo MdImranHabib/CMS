@@ -9,16 +9,19 @@ using CMS.Data;
 using CMS.Models;
 using CMS.Models.ViewModels;
 using CMS.Models.AccountViewModels;
+using Microsoft.AspNetCore.Identity;
 
 namespace CMS.Controllers
 {
     public class EmployeesController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly UserManager<ApplicationUser> _userManager;
 
-        public EmployeesController(ApplicationDbContext context)
+        public EmployeesController(ApplicationDbContext context, UserManager<ApplicationUser> userManager)
         {
             _context = context;
+            _userManager = userManager;
         }
 
         // GET: Employees
@@ -49,11 +52,11 @@ namespace CMS.Controllers
 
         public JsonResult IsEmailExist(string email)
         {
-            bool result = false;
+            bool result = true;
 
             if (_context.Employees.Any(c => c.Email == email))
             {
-                result = true;
+                result = false;
             }
             return Json(result);
         }
@@ -61,6 +64,7 @@ namespace CMS.Controllers
         // GET: Employees/Create
         public IActionResult Create()
         {
+            ViewBag.msg = "";
             ViewData["BranchId"] = new SelectList(_context.Branches, "Id", "Name");
             return View();
         }
@@ -72,6 +76,7 @@ namespace CMS.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,Name,Address,Email,Contact,BranchId,Password,ConfirmPassword")] EmployeeViewModel employeeViewModel)
         {
+            string msg = "";
             if (ModelState.IsValid)
             {
                 Employee employee = new Employee()
@@ -86,17 +91,32 @@ namespace CMS.Controllers
                 _context.Add(employee);
                 await _context.SaveChangesAsync();
 
-                RegisterViewModel model = new RegisterViewModel()
+                var user = new ApplicationUser { UserName = employeeViewModel.Email, Email = employeeViewModel.Email };
+                var result = await _userManager.CreateAsync(user, employeeViewModel.Password);
+
+                if (result.Succeeded)
                 {
-                    Email = employeeViewModel.Email,
-                    Password = employeeViewModel.Password,
-                    ConfirmPassword = employeeViewModel.ConfirmPassword
-                };
-                return RedirectToAction("Register", "Account", model);
-               // return RedirectToAction(nameof(Index));
+                    msg = "Employee " + employee.Name + " has been registered successfully!";                
+                }
+                else
+                {
+                    AddErrors(result);
+                }
+               
+                //RegisterViewModel model = new RegisterViewModel()
+                //{
+                //    Email = employeeViewModel.Email,
+                //    Password = employeeViewModel.Password,
+                //    ConfirmPassword = employeeViewModel.ConfirmPassword
+                //};
+
+                //return RedirectToAction("Register", "Account", model);
+                // return RedirectToAction(nameof(Index));
             }
+
+            ViewBag.msg = msg;
             ViewData["BranchId"] = new SelectList(_context.Branches, "Id", "Name", employeeViewModel.BranchId);
-            return View(employeeViewModel);
+            return View("Create");
         }
 
         // GET: Employees/Edit/5
@@ -185,6 +205,14 @@ namespace CMS.Controllers
         private bool EmployeeExists(int id)
         {
             return _context.Employees.Any(e => e.Id == id);
+        }
+
+        private void AddErrors(IdentityResult result)
+        {
+            foreach (var error in result.Errors)
+            {
+                ModelState.AddModelError(string.Empty, error.Description);
+            }
         }
     }
 }

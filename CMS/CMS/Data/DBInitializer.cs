@@ -23,7 +23,7 @@ namespace CMS.Data
         {
             var branch = new Branch()
             {
-                Name = "HeadBrach",
+                Name = "Head Branch",
                 Address = "Dhaka",
                 Email = "headbranch@gmail.com",
                 Contact = "01700000000"
@@ -38,7 +38,7 @@ namespace CMS.Data
             var employee = new Employee()
             {
                 Name = "Admin",
-                Address = "HeadOffice",
+                Address = "Head Office",
                 Email = "admin@gmail.com",
                 Contact = "01700000000",
                 BranchId = 1

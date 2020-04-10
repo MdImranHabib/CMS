@@ -22,14 +22,14 @@ namespace CMS.Controllers
         // GET: PercelLocations
         public async Task<IActionResult> Index()
         {
-            var applicationDbContext = _context.PercelLocation; /*.Include(p => p.Branch)*/
+            var applicationDbContext = _context.PercelLocation.Include(p => p.Branch).Include(p => p.Percel); 
             return View(await applicationDbContext.ToListAsync());
         }
 
-        public IActionResult SearchPercelLocation()
-        {
-            return View();
-        }
+        //public IActionResult SearchPercelLocation()
+        //{
+        //    return View();
+        //}
 
         [HttpPost]
         public IActionResult SearchPercelLocation(string Code)
@@ -42,14 +42,13 @@ namespace CMS.Controllers
             var percel = _context.Percels.FirstOrDefault(p => p.Code == Code);
 
             var percelLocation = _context.PercelLocation
-
+                .Include(p => p.Branch)
                 .Include(p => p.Percel)
-                .Where(p => p.PercelId == percel.Id).ToList();                //.Include(p => p.Branch)
+                .Where(p => p.PercelId == percel.Id).ToList();                
             if (percelLocation == null)
             {
                 return Content("There is no location for this product");
             }
-
             return View("Index", percelLocation);
         }
 

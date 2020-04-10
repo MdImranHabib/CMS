@@ -46,6 +46,7 @@ namespace CMS.Controllers
         // GET: Branches/Create
         public IActionResult Create()
         {
+            ViewBag.msg = "";
             return View();
         }
 
@@ -56,13 +57,16 @@ namespace CMS.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,Name,Address,Email,Contact")] Branch branch)
         {
+            string msg = "";
             if (ModelState.IsValid)
             {
                 _context.Add(branch);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                //return RedirectToAction(nameof(Index));
+                msg = branch.Name + " branch has been created successfully!";
             }
-            return View(branch);
+            ViewBag.msg = msg;
+            return View("Create");
         }
 
         // GET: Branches/Edit/5

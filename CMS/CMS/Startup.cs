@@ -71,7 +71,7 @@ namespace CMS
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
 
-            DBInitializer.Initialize(context, userManager, roleManager).Wait();
+            //DBInitializer.Initialize(context, userManager, roleManager).Wait();
         }
     }
 }
