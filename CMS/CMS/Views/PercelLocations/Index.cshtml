@@ -14,18 +14,16 @@
             <tr class="bg-primary">
                 <th>SL No.</th>
                 <th>
-                    @*@Html.DisplayNameFor(model => model.Percel)*@
-                    Percel Code
+                    @Html.DisplayNameFor(model => model.Percel.Code)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.Branch)
+                    @Html.DisplayNameFor(model => model.Percel.Branch)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.Status)
+                    @Html.DisplayNameFor(model => model.Percel.Status)
                 </th>
                 <th>
-                    @*@Html.DisplayNameFor(model => model.ReceivingDate)*@
-                    Date
+                    @Html.DisplayNameFor(model => model.Date)
                 </th>
             </tr>
         </thead>
@@ -40,13 +38,13 @@
                             @Html.DisplayFor(modelItem => item.Percel.Code)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.Branch.Address)
+                            @Html.DisplayFor(modelItem => item.Percel.Branch.Address)
                         </td>                      
                         <td>
-                            @Html.DisplayFor(modelItem => item.Status)
+                            @Html.DisplayFor(modelItem => item.Percel.Status)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.ReceivingDate)
+                            @Html.DisplayFor(modelItem => item.Date)
                         </td>
                     </tr>
                 }
@@ -58,13 +56,13 @@
                             @Html.DisplayFor(modelItem => item.Percel.Code)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.Branch.Address)
+                            @Html.DisplayFor(modelItem => item.Percel.Branch.Address)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.Status)
+                            @Html.DisplayFor(modelItem => item.Percel.Status)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.ReceivingDate)
+                            @Html.DisplayFor(modelItem => item.Date)
                         </td>
                     </tr>
                 }

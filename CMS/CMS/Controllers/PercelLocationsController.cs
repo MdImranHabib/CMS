@@ -22,7 +22,7 @@ namespace CMS.Controllers
         // GET: PercelLocations
         public async Task<IActionResult> Index()
         {
-            var applicationDbContext = _context.PercelLocation.Include(p => p.Branch);
+            var applicationDbContext = _context.PercelLocation; /*.Include(p => p.Branch)*/
             return View(await applicationDbContext.ToListAsync());
         }
 
@@ -42,9 +42,9 @@ namespace CMS.Controllers
             var percel = _context.Percels.FirstOrDefault(p => p.Code == Code);
 
             var percelLocation = _context.PercelLocation
-                .Include(p => p.Branch)
+
                 .Include(p => p.Percel)
-                .Where(p => p.PercelId == percel.Id).ToList();
+                .Where(p => p.PercelId == percel.Id).ToList();                //.Include(p => p.Branch)
             if (percelLocation == null)
             {
                 return Content("There is no location for this product");
@@ -62,7 +62,7 @@ namespace CMS.Controllers
             }
 
             var percelLocation = await _context.PercelLocation
-                .Include(p => p.Branch)
+                //.Include(p => p.Branch)
                 .SingleOrDefaultAsync(m => m.Id == id);
             if (percelLocation == null)
             {
@@ -92,7 +92,7 @@ namespace CMS.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["BranchId"] = new SelectList(_context.Branches, "Id", "Address", percelLocation.BranchId);
+            //ViewData["BranchId"] = new SelectList(_context.Branches, "Id", "Address", percelLocation.BranchId);
             return View(percelLocation);
         }
 
@@ -109,7 +109,7 @@ namespace CMS.Controllers
             {
                 return NotFound();
             }
-            ViewData["BranchId"] = new SelectList(_context.Branches, "Id", "Address", percelLocation.BranchId);
+            //ViewData["BranchId"] = new SelectList(_context.Branches, "Id", "Address", percelLocation.BranchId);
             return View(percelLocation);
         }
 
@@ -145,7 +145,7 @@ namespace CMS.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["BranchId"] = new SelectList(_context.Branches, "Id", "Address", percelLocation.BranchId);
+            //ViewData["BranchId"] = new SelectList(_context.Branches, "Id", "Name", percelLocation.BranchId);
             return View(percelLocation);
         }
 
@@ -158,7 +158,7 @@ namespace CMS.Controllers
             }
 
             var percelLocation = await _context.PercelLocation
-                .Include(p => p.Branch)
+                //.Include(p => p.Branch)
                 .SingleOrDefaultAsync(m => m.Id == id);
             if (percelLocation == null)
             {

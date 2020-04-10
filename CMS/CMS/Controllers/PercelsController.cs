@@ -71,9 +71,9 @@ namespace CMS.Controllers
             PercelLocation percelLocation = new PercelLocation()
             {
                 PercelId = percel.Id,
-                BranchId = employee.BranchId,
-                Status = "Received",
-                ReceivingDate = System.DateTime.Now
+                //BranchId = employee.BranchId,
+                //Status = "Received",
+                Date = System.DateTime.Now
             };
 
             _context.Add(percelLocation);
@@ -248,9 +248,9 @@ namespace CMS.Controllers
                 PercelLocation percelLocation = new PercelLocation()
                 {
                     PercelId = percel.Id,
-                    BranchId = employee.BranchId,
-                    Status = "Received",
-                    ReceivingDate = System.DateTime.Now
+                    //BranchId = employee.BranchId,
+                    //Status = "Received",
+                    Date = System.DateTime.Now
                 };
 
                 _context.Add(percelLocation);
@@ -301,9 +301,9 @@ namespace CMS.Controllers
             PercelLocation percelLocation = new PercelLocation()
             {
                 PercelId = percel.Id,
-                BranchId = percel.BranchId,
-                Status = "Delivered",
-                ReceivingDate = System.DateTime.Now
+                //BranchId = percel.BranchId,
+                //Status = "Delivered",
+                Date = System.DateTime.Now
             };
 
             _context.Add(percelLocation);
