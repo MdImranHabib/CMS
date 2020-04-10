@@ -72,6 +72,7 @@ namespace CMS.Controllers
             {
                 PercelId = percel.Id,
                 BranchId = employee.BranchId,
+                Status = "Received",
                 Date = System.DateTime.Now
             };
 
@@ -248,6 +249,7 @@ namespace CMS.Controllers
                 {
                     PercelId = percel.Id,
                     BranchId = employee.BranchId,
+                    Status = "Received",
                     Date = System.DateTime.Now
                 };
 
@@ -300,6 +302,7 @@ namespace CMS.Controllers
             {
                 PercelId = percel.Id,
                 BranchId = percel.BranchId,
+                Status = "Delivered",
                 Date = System.DateTime.Now
             };
 

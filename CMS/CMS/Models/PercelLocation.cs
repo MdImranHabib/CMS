@@ -19,6 +19,10 @@ namespace CMS.Models
         public int PercelId { get; set; }
 
         [Required]
+        [StringLength(15)]
+        public string Status { get; set; }
+
+        [Required]
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:MMMM dd, yyyy}")]
         public DateTime Date { get; set; }
