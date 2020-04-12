@@ -1,4 +1,7 @@
-﻿@model CMS.Models.Percel
+﻿@using Microsoft.AspNetCore.Identity;
+@inject SignInManager<ApplicationUser> signInManager;
+
+@model CMS.Models.Percel
 @{
     ViewData["Title"] = "Report";
     Layout = "~/Views/Shared/AdminLayout.cshtml";
@@ -112,7 +115,17 @@
         </table>
     </div>
     <div>
-        <a asp-action="Index" class="btn btn-primary">Back to List</a>
+        @if (signInManager.IsSignedIn(User))
+        {
+            if (User.IsInRole("Admin"))
+            {
+                <a asp-action="GetAllPercels" class="btn btn-primary">Back to List</a>
+            }
+            if (User.IsInRole("Executive"))
+            {
+                <a asp-action="Index" class="btn btn-primary">Back to List</a>
+            }
+        }
         <button id="pbtn" class="btn btn-success" onclick="printdiv('print');">Print</button>
     </div>
 </div>

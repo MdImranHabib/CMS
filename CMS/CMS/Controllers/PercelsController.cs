@@ -21,7 +21,16 @@ namespace CMS.Controllers
             _context = context;
         }
 
-        // GET: Percels
+        public async Task<IActionResult> GetAllPercels()
+        {
+            var percelList = await _context.Percels
+                .Include(p => p.Branch)
+                .Include(p => p.Receiver)
+                .Include(p => p.Sender).ToListAsync();
+            return View(percelList);
+        }
+
+        // GET: Percels for specific branch
         public async Task<IActionResult> Index()
         {
             var employeeId = HttpContext.Session.GetInt32("employeeId");
@@ -161,7 +170,7 @@ namespace CMS.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Weight,Cost,ReceivingDate,SenderId,ReceiverId,BranchId,Status")] Percel percel)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Code,Weight,Cost,ReceivingDate,SenderId,ReceiverId,BranchId,Status")] Percel percel)
         {
             if (id != percel.Id)
             {
@@ -186,7 +195,7 @@ namespace CMS.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(GetAllPercels));
             }
             ViewData["BranchId"] = new SelectList(_context.Branches, "Id", "Name", percel.BranchId);
             ViewData["ReceiverId"] = new SelectList(_context.Receivers, "Id", "Name", percel.ReceiverId);

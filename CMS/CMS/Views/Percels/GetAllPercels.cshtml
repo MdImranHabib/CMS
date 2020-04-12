@@ -1,22 +1,14 @@
-﻿@model CMS.Models.Percel
+﻿@model IEnumerable<CMS.Models.Percel>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "GetAllPercels";
     Layout = "~/Views/Shared/AdminLayout.cshtml";
-    var serial = 1;
+    int serial = 1;
 }
 
 <div class="well">
     <h4 class="alert bg-primary text-center">Percel List</h4>
-    <hr />
-    <form asp-action="Index" class="form-inline">
-        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-        <label asp-for="Code" class="control-label">Percel Code :</label>
-        <input asp-for="Code" class="form-control" placeholder="Enter percel Code" />
-        <input type="submit" value="Receive" class="btn btn-success form-control" />
-        <span asp-validation-for="Code" class="text-danger"></span>
-    </form>
-    <hr />
+
     <table class="table table-bordered table-hover table-condensed" id="myTable">
         <thead>
             <tr class="bg-primary">
@@ -49,7 +41,7 @@
             </tr>
         </thead>
         <tbody>
-            @foreach (var item in ViewBag.Percels)
+            @foreach (var item in Model)
             {
                 if (serial % 2 == 0)
                 {
@@ -80,8 +72,9 @@
                             @item.Status
                         </td>
                         <td>
+                            <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-warning btn-xs">Edit</a>
                             <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-info btn-xs">Details</a>
-                            <a asp-action="Deliver" asp-route-id="@item.Id" class="btn btn-warning btn-xs">Deliver</a>
+                            <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger btn-xs">Delete</a>
                         </td>
                     </tr>
                 }
@@ -114,8 +107,9 @@
                             @item.Status
                         </td>
                         <td>
+                            <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-warning btn-xs">Edit</a>
                             <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-info btn-xs">Details</a>
-                            <a asp-action="Deliver" asp-route-id="@item.Id" class="btn btn-warning btn-xs">Deliver</a>
+                            <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger btn-xs">Delete</a>
                         </td>
                     </tr>
                 }

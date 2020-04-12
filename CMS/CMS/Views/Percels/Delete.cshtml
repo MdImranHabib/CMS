@@ -40,26 +40,26 @@
                 @Html.DisplayNameFor(model => model.Branch)
             </dt>
             <dd>
-                @Html.DisplayFor(model => model.Branch.Address)
+                @Html.DisplayFor(model => model.Branch.Name)
             </dd>
             <dt>
                 @Html.DisplayNameFor(model => model.Receiver)
             </dt>
             <dd>
-                @Html.DisplayFor(model => model.Receiver.Address)
+                @Html.DisplayFor(model => model.Receiver.Name)
             </dd>
             <dt>
                 @Html.DisplayNameFor(model => model.Sender)
             </dt>
             <dd>
-                @Html.DisplayFor(model => model.Sender.Address)
+                @Html.DisplayFor(model => model.Sender.Name)
             </dd>
         </dl>
         <hr />
         <form asp-action="Delete">
             <input type="hidden" asp-for="Id" />
             <input type="submit" value="Delete" class="btn btn-danger btn-xs" /> 
-            <a asp-action="Index" class="btn btn-primary btn-xs">Back to List</a>
+            <a asp-action="GetAllPercels" class="btn btn-primary btn-xs">Back to List</a>
         </form>
     </div>
 </div>

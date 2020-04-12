@@ -1,4 +1,7 @@
-﻿@model CMS.Models.Percel
+﻿@using Microsoft.AspNetCore.Identity;
+@inject SignInManager<ApplicationUser> signInManager;
+
+@model CMS.Models.Percel
 
 @{
     ViewData["Title"] = "Details";
@@ -111,7 +114,17 @@
     </div>
     <hr />
     <div>
-        <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning btn-xs">Edit</a> 
-        <a asp-action="Index" class="btn btn-primary btn-xs">Back to List</a>
+        @if (signInManager.IsSignedIn(User))
+        {
+            if (User.IsInRole("Admin"))
+            {
+                <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning btn-xs">Edit</a>
+                <a asp-action="GetAllPercels" class="btn btn-primary btn-xs">Back to List</a>
+            }
+            if (User.IsInRole("Executive"))
+            {
+                <a asp-action="Index" class="btn btn-primary btn-xs">Back to List</a>
+            }
+        }
     </div>
 </div>
