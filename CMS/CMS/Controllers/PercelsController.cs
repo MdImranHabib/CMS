@@ -9,9 +9,11 @@ using CMS.Data;
 using CMS.Models;
 using Microsoft.AspNetCore.Http;
 using CMS.Models.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 
 namespace CMS.Controllers
 {
+    [Authorize]
     public class PercelsController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -21,6 +23,7 @@ namespace CMS.Controllers
             _context = context;
         }
 
+        [Authorize(Roles ="Admin")]
         public async Task<IActionResult> GetAllPercels()
         {
             var percelList = await _context.Percels
@@ -147,6 +150,8 @@ namespace CMS.Controllers
         //}
 
         // GET: Percels/Edit/5
+
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -289,6 +294,7 @@ namespace CMS.Controllers
             return percelCodeNo;
         }
 
+
         public async Task<IActionResult> Deliver(int? id)
         {
             if (id == null)
@@ -322,6 +328,7 @@ namespace CMS.Controllers
         }
 
         // GET: Percels/Delete/5
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)

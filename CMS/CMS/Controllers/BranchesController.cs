@@ -7,9 +7,11 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using CMS.Data;
 using CMS.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace CMS.Controllers
 {
+    [Authorize]
     public class BranchesController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -44,6 +46,7 @@ namespace CMS.Controllers
         }
 
         // GET: Branches/Create
+        [Authorize(Roles = "Admin")]
         public IActionResult Create()
         {
             ViewBag.msg = "";
@@ -70,6 +73,7 @@ namespace CMS.Controllers
         }
 
         // GET: Branches/Edit/5
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -121,6 +125,7 @@ namespace CMS.Controllers
         }
 
         // GET: Branches/Delete/5
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)

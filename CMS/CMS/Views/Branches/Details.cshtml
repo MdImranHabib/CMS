@@ -1,4 +1,7 @@
-﻿@model CMS.Models.Branch
+﻿@using Microsoft.AspNetCore.Identity;
+@inject SignInManager<ApplicationUser> signInManager;
+
+@model CMS.Models.Branch
 
 @{
     ViewData["Title"] = "Details";
@@ -38,7 +41,14 @@
         </dl>
     </div>
     <div>
-        <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning btn-xs">Edit</a> 
         <a asp-action="Index" class="btn btn-primary btn-xs">Back to List</a>
+
+        @if (signInManager.IsSignedIn(User))
+        {
+            if (User.IsInRole("Admin"))
+            {
+                <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning btn-xs">Edit</a>
+            }
+        }
     </div>
 </div>
