@@ -1,32 +1,116 @@
 ﻿body {
-    padding-top: 50px;
-    padding-bottom: 20px;
-    background-color: rgba(0, 0, 0, .25);
+    margin: 0;
+    padding: 0;
+    background: url('../images/login background.jpg');
+    background-repeat: no-repeat;
+    font-family: sans-serif;
+}
+
+.loginbox{
+    width: 350px;
+    height: 460px;
+    background: #000;
+    color: #fff;
+    top: 50%;
+    left: 50%;
+    position: absolute;
+    transform: translate(-50%,-50%);
+    box-sizing: border-box;
+    padding: 70px 30px;
+    border-radius:10px;
+}
+
+.avatar{
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    position: absolute;
+    top: -50px;
+    left: calc(50% - 50px);
+}
+
+h1{
+    margin: 0;
+    padding: 0 0 20px;
+    text-align: center;
+    font-size: 22px;
+}
+
+.loginbox label {
+    margin: 0;
+    padding: 0;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.loginbox input{
+    width: 100%;
+    margin-bottom: 25px;
+}
+
+.loginbox input[type="email"], input[type="password"]
+{
+    border: none;
+    border-bottom: 1px solid #fff;
+    background: transparent;
+    outline: none;
+    height: 40px;
+    color: #fff;
+    font-size: 16px;
+}
+
+.loginbox input[type="submit"]
+{
+    border: none;
+    outline: none;
+    height: 40px;
+    background: #fb2525;
+    color: #fff;
+    font-size: 18px;
+    border-radius: 20px;
+}
+
+.loginbox input[type="submit"]:hover
+{
+    cursor: pointer;
+    background: green;
+    color: #fff;
+}
+
+.loginbox a{
+    text-decoration: none;
+    font-size: 12px;
+    line-height: 20px;
+    color: darkgrey;
+}
+
+.loginbox a:hover{
+    color:aqua;
 }
 
 /* Wrapping element */
 /* Set some basic padding to keep content from hitting the edges */
-.body-content {
+/*.body-content {
     padding-left: 15px;
     padding-right: 15px;
     background-color: white;
-}
+}*/
 
 /* Carousel */
-.carousel-caption p {
+/*.carousel-caption p {
     font-size: 20px;
     line-height: 1.4;
-}
+}*/
 
 /* Make .svg files in the carousel display properly in older browsers */
-.carousel-inner .item img[src$=".svg"] {
+/*.carousel-inner .item img[src$=".svg"] {
     width: 100%;
-}
+}*/
 
 /* QR code generator */
-#qrCode {
+/*#qrCode {
     margin: 15px;
-}
+}*/
 
 /* Hide/rearrange for smaller screens */
 @media screen and (max-width: 767px) {
