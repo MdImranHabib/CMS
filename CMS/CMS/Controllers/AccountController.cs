@@ -88,7 +88,7 @@ namespace CMS.Controllers
                         HttpContext.Session.SetInt32("employeeId", employeeId);
 
                         _logger.LogInformation("User logged in.");
-                        return RedirectToAction("Dashboard", "Home");
+                        return RedirectToAction("AdminDashboard", "Home");
                     }
                     else if (roleType == "Executive")
                     {

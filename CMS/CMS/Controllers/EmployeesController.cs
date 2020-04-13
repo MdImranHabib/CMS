@@ -10,9 +10,12 @@ using CMS.Models;
 using CMS.Models.ViewModels;
 using CMS.Models.AccountViewModels;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Authorization;
 
 namespace CMS.Controllers
 {
+    [Authorize]
     public class EmployeesController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -25,10 +28,21 @@ namespace CMS.Controllers
         }
 
         // GET: Employees
+        [Authorize(Roles ="Admin")]
         public async Task<IActionResult> Index()
         {
             var applicationDbContext = _context.Employees.Include(e => e.Branch);
             return View(await applicationDbContext.ToListAsync());
+        }
+
+        public IActionResult GetSpecificEmployees()
+        {
+            var employeeId = HttpContext.Session.GetInt32("employeeId");
+            var employee = _context.Employees.FirstOrDefault(e => e.Id == employeeId);
+            var branchId = employee.BranchId;
+            var employees = _context.Employees.Where(e => e.BranchId == branchId).ToList();
+
+            return View(employees);
         }
 
         // GET: Employees/Details/5
@@ -62,6 +76,7 @@ namespace CMS.Controllers
         }
 
         // GET: Employees/Create
+        [Authorize(Roles = "Admin")]
         public IActionResult Create()
         {
             ViewBag.msg = "";
@@ -103,15 +118,6 @@ namespace CMS.Controllers
                     AddErrors(result);
                 }
                
-                //RegisterViewModel model = new RegisterViewModel()
-                //{
-                //    Email = employeeViewModel.Email,
-                //    Password = employeeViewModel.Password,
-                //    ConfirmPassword = employeeViewModel.ConfirmPassword
-                //};
-
-                //return RedirectToAction("Register", "Account", model);
-                // return RedirectToAction(nameof(Index));
             }
 
             ViewBag.msg = msg;
@@ -120,6 +126,7 @@ namespace CMS.Controllers
         }
 
         // GET: Employees/Edit/5
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -173,6 +180,7 @@ namespace CMS.Controllers
         }
 
         // GET: Employees/Delete/5
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
