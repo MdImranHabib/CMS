@@ -1,43 +1,54 @@
-﻿@model CMS.Models.Sender
+﻿@using Microsoft.AspNetCore.Identity;
+@inject SignInManager<ApplicationUser> signInManager;
+
+@model CMS.Models.Sender
 
 @{
     ViewData["Title"] = "Details";
     Layout = "~/Views/Shared/AdminLayout.cshtml";
 }
 
-<h2>Details</h2>
+<div class="well">
+    <h4 class="alert bg-primary text-center">Sender Details Information</h4>
+    <div>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.Name)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Name)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Address)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Address)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Email)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Email)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Contact)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Contact)
+            </dd>
+        </dl>
+    </div>
+    <div>
+        <a asp-action="Index" class="btn btn-primary btn-xs">Back to List</a>
 
-<div>
-    <h4>Sender</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Name)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Name)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Address)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Address)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Email)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Email)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Contact)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Contact)
-        </dd>
-    </dl>
-</div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+        @if (signInManager.IsSignedIn(User))
+        {
+            if (User.IsInRole("Admin"))
+            {
+                <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning btn-xs">Edit</a>
+            }
+        }
+
+    </div>
 </div>
