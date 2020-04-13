@@ -19,7 +19,7 @@ using Microsoft.AspNetCore.Http;
 
 namespace CMS.Controllers
 {
-    //[Authorize]
+    [Authorize]
     [Route("[controller]/[action]")]
     public class AccountController : Controller
     {
@@ -248,17 +248,17 @@ namespace CMS.Controllers
             return View(users);
         }
 
-        //[HttpGet]
-        //[AllowAnonymous]
-        //public IActionResult Register(string returnUrl = null)
-        //{
-        //    ViewData["ReturnUrl"] = returnUrl;
-        //    return View();
-        //}
+        [HttpGet]
+        [AllowAnonymous]
+        public IActionResult Register(string returnUrl = null)
+        {
+            ViewData["ReturnUrl"] = returnUrl;
+            return View();
+        }
 
-        //[HttpPost]
-        // [AllowAnonymous]
-        //[ValidateAntiForgeryToken]
+        [HttpPost]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Register(RegisterViewModel model, string returnUrl = null)
         {
             ViewData["ReturnUrl"] = returnUrl;
@@ -504,12 +504,14 @@ namespace CMS.Controllers
             }
         }
 
+        [Authorize(Roles ="Admin")]
         public async Task<IActionResult> RoleIndex()
         {
             return View(await _context.Roles.ToListAsync());
         }
 
         [HttpGet]
+        [Authorize(Roles = "Admin")]
         public IActionResult CreateRole()
         {
             ViewBag.msg = "";
@@ -538,6 +540,7 @@ namespace CMS.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Admin")]
         public IActionResult AssignRole()
         {
             var roles = _roleManager.Roles;
@@ -603,6 +606,7 @@ namespace CMS.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> EditRole(string id)
         {
             var role = await _roleManager.FindByIdAsync(id);
@@ -657,6 +661,7 @@ namespace CMS.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> EditUsersInRole(string roleId)
         {
             ViewBag.roleId = roleId;
