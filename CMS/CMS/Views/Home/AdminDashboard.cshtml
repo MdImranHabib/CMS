@@ -1,0 +1,50 @@
+﻿
+@{
+    ViewData["Title"] = "AdminDashboard";
+    Layout = "~/Views/Shared/AdminLayout.cshtml";
+}
+
+<div class="well">
+    <div class="well" style="background-color:#003366">
+        <h4 class="text-capitalize text-center" style="color:whitesmoke">
+            Welcome! <strong style="color:orangered">@ViewBag.employeeName</strong> to
+            <strong style="color:lawngreen">Courier Management System</strong>
+            <strong style="color:white; float:right">@System.DateTime.Now</strong>
+        </h4>
+    </div>
+    <div class="row">
+        <div class="col-sm-4">
+            <div class="well" style="background-color:red;">
+                <h4 class="text-center"><a asp-action="Index" asp-controller="Branches" style="color:black">Total Branch</a></h4>
+                <h4 class="text-center">@ViewBag.totalBranch</h4>
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="well" style="background-color:blue">
+                <h4 class="text-center"><a asp-action="Index" asp-controller="Employees" style="color:black">Total Employees</a></h4>
+                <h4 class="text-center">@ViewBag.totalEmployee</h4>
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="well" style="background-color:yellow">
+                <h4 class="text-center"><a asp-action="GetAllPercels" asp-controller="Percels" style="color:black">Total Percel</a></h4>
+                <h4 class="text-center">@ViewBag.totalPercel</h4>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-4">
+            <div class="well" style="background-color:firebrick">
+                <h4 class="text-center"><a asp-action="Index" asp-controller="Senders" style="color:black">Total Sender</a></h4>
+                <h4 class="text-center">@ViewBag.totalSender</h4>
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="well" style="background-color:dodgerblue">
+                <h4 class="text-center"><a asp-action="Index" asp-controller="Receivers" style="color:black">Total Receiver</a></h4>
+                <h4 class="text-center">@ViewBag.totalReceiver</h4>
+            </div>
+        </div>
+    </div>
+</div>
+

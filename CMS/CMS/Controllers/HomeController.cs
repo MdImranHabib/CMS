@@ -50,6 +50,21 @@ namespace CMS.Controllers
             return View();
         }
 
+        public IActionResult AdminDashboard()
+        {
+            var employeeId = HttpContext.Session.GetInt32("employeeId");
+            var employee = _context.Employees.FirstOrDefault(e => e.Id == employeeId);
+
+            ViewBag.employeeName = employee.Name;
+            ViewBag.totalBranch = _context.Branches.Count();
+            ViewBag.totalEmployee = _context.Employees.Count();
+            ViewBag.totalPercel = _context.Percels.Count();           
+            ViewBag.totalSender = _context.Senders.Count();
+            ViewBag.totalReceiver = _context.Receivers.Count();
+          
+            return View();
+        }
+
         public IActionResult Services()
         {
             return View();

@@ -33,7 +33,18 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a asp-controller="Home" asp-action="Dashboard" class="navbar-brand"> Courier Management System</a>
+                @if (signInManager.IsSignedIn(User))
+                {
+                    if (User.IsInRole("Admin"))
+                    {
+                        <a asp-controller="Home" asp-action="AdminDashboard" class="navbar-brand"> Courier Management System</a>
+                    }
+                    if (User.IsInRole("Executive"))
+                    {
+                        <a asp-controller="Home" asp-action="Dashboard" class="navbar-brand"> Courier Management System</a>
+                    }
+                }
+
             </div>
 
             <div class="collapse navbar-collapse sidenavC" id="myNavbar">
@@ -41,7 +52,7 @@
                 {
                     if (User.IsInRole("Admin"))
                     {
-                        <a asp-area="" asp-controller="Home" asp-action="Dashboard"><i class="fa fa-home fa-lg fa-fw" aria-hidden="true"></i> Home</a>
+                        <a asp-area="" asp-controller="Home" asp-action="AdminDashboard"><i class="fa fa-home fa-lg fa-fw" aria-hidden="true"></i> Home</a>
 
                         <button class="dropdown-btn"><i class="fa fa-gift fa-lg fa-fw" aria-hidden="true"></i> Percel<span class="fa fa-caret-down"></span></button>
                         <div class="dropdown-container">
@@ -54,7 +65,7 @@
                         <a asp-area="" asp-controller="Senders" asp-action="Index"><i class="fa fa-user-circle fa-lg fa-fw" aria-hidden="true"></i> Senders</a>
                         <a asp-area="" asp-controller="Receivers" asp-action="Index"><i class="fa fa-user-circle-o fa-lg fa-fw" aria-hidden="true"></i> Receivers</a>
 
-                        <button class="dropdown-btn"><i class="fa fa-user-o fa-lg fa-fw" aria-hidden="true"></i> User<span class="fa fa-caret-down"></span></button>
+                        <button class="dropdown-btn"><i class="fa fa-users fa-lg fa-fw" aria-hidden="true"></i> User<span class="fa fa-caret-down"></span></button>
                         <div class="dropdown-container">
                             <a asp-area="" asp-controller="Account" asp-action="RegisterIndex"><i class="fa fa-user-plus fa-fw" aria-hidden="true"></i> Registered User</a>
                             <a asp-area="" asp-controller="Account" asp-action="RoleIndex"><i class="fa fa-bars fa-fw" aria-hidden="true"></i> Role List</a>
@@ -95,7 +106,17 @@
         <div class="row content">
             <div class="navbar navbar-inverse navbar-fixed-top hidden-xs">
 
-                <a asp-controller="Home" asp-action="Dashboard" class="navbar-brand"> Courier Management System</a>
+                @if (signInManager.IsSignedIn(User))
+                {
+                    if (User.IsInRole("Admin"))
+                    {
+                        <a asp-controller="Home" asp-action="AdminDashboard" class="navbar-brand"> Courier Management System</a>
+                    }
+                    if (User.IsInRole("Executive"))
+                    {
+                        <a asp-controller="Home" asp-action="Dashboard" class="navbar-brand"> Courier Management System</a>
+                    }
+                }
 
                 @await Html.PartialAsync("_LoginPartial")
             </div>
@@ -106,7 +127,7 @@
                 {
                     if (User.IsInRole("Admin"))
                     {
-                        <a asp-area="" asp-controller="Home" asp-action="Dashboard"><i class="fa fa-home fa-lg fa-fw" aria-hidden="true"></i> Home</a>
+                        <a asp-area="" asp-controller="Home" asp-action="AdminDashboard"><i class="fa fa-home fa-lg fa-fw" aria-hidden="true"></i> Home</a>
 
                         <button class="dropdown-btn"><i class="fa fa-gift fa-lg fa-fw" aria-hidden="true"></i> Percel<span class="fa fa-caret-down"></span></button>
                         <div class="dropdown-container">
@@ -119,7 +140,7 @@
                         <a asp-area="" asp-controller="Senders" asp-action="Index"><i class="fa fa-user-circle fa-lg fa-fw" aria-hidden="true"></i> Senders</a>
                         <a asp-area="" asp-controller="Receivers" asp-action="Index"><i class="fa fa-user-circle-o fa-lg fa-fw" aria-hidden="true"></i> Receivers</a>
 
-                        <button class="dropdown-btn"><i class="fa fa-user-o fa-lg fa-fw" aria-hidden="true"></i> User<span class="fa fa-caret-down"></span></button>
+                        <button class="dropdown-btn"><i class="fa fa-users fa-lg fa-fw" aria-hidden="true"></i> User<span class="fa fa-caret-down"></span></button>
                         <div class="dropdown-container">
                             <a asp-area="" asp-controller="Account" asp-action="RegisterIndex"><i class="fa fa-user-plus fa-fw" aria-hidden="true"></i> Registered User</a>
                             <a asp-area="" asp-controller="Account" asp-action="RoleIndex"><i class="fa fa-bars fa-fw" aria-hidden="true"></i> Role List</a>
