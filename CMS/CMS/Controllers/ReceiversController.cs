@@ -7,9 +7,11 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using CMS.Data;
 using CMS.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace CMS.Controllers
 {
+    [Authorize]
     public class ReceiversController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -43,29 +45,8 @@ namespace CMS.Controllers
             return View(receiver);
         }
 
-        // GET: Receivers/Create
-        public IActionResult Create()
-        {
-            return View();
-        }
-
-        // POST: Receivers/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,Address,Email,Contact")] Receiver receiver)
-        {
-            if (ModelState.IsValid)
-            {
-                _context.Add(receiver);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
-            }
-            return View(receiver);
-        }
-
         // GET: Receivers/Edit/5
+        [Authorize(Roles ="Admin")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -117,6 +98,7 @@ namespace CMS.Controllers
         }
 
         // GET: Receivers/Delete/5
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
