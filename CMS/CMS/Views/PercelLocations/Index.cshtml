@@ -1,15 +1,18 @@
-﻿@model IEnumerable<CMS.Models.PercelLocation>
+﻿@using Microsoft.AspNetCore.Identity;
+@inject SignInManager<ApplicationUser> signInManager;
+
+@model IEnumerable<CMS.Models.PercelLocation>
 
 @{
     ViewData["Title"] = "Index";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = "~/Views/Shared/AdminLayout.cshtml";
     var serial = 1;
 }
 
 <div class="well">
     <h4 class="alert bg-primary text-center">Percel Locations</h4>
 
-    <table class="table table-bordered table-hover table-condensed">
+    <table class="table table-bordered table-hover table-condensed" id="myTable">
         <thead>
             <tr class="bg-primary">
                 <th>SL No.</th>
@@ -25,6 +28,7 @@
                 <th>
                     @Html.DisplayNameFor(model => model.Date)
                 </th>
+                <th>Action</th>
             </tr>
         </thead>
         <tbody>
@@ -34,17 +38,29 @@
                 {
                     <tr class="warning">
                         <td>@serial</td>
-                         <td>
+                        <td>
                             @Html.DisplayFor(modelItem => item.Percel.Code)
                         </td>
                         <td>
                             @Html.DisplayFor(modelItem => item.Branch.Name)
-                        </td>                      
+                        </td>
                         <td>
                             @Html.DisplayFor(modelItem => item.Status)
                         </td>
                         <td>
                             @Html.DisplayFor(modelItem => item.Date)
+                        </td>
+                        <td>
+                            <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-info btn-xs">Details</a>
+
+                            @if (signInManager.IsSignedIn(User))
+                            {
+                                if (User.IsInRole("Admin"))
+                                {
+                                    <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-warning btn-xs">Edit</a>
+                                    <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger btn-xs">Delete</a>
+                                }
+                            }
                         </td>
                     </tr>
                 }
@@ -64,6 +80,18 @@
                         <td>
                             @Html.DisplayFor(modelItem => item.Date)
                         </td>
+                        <td>
+                            <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-info btn-xs">Details</a>
+
+                            @if (signInManager.IsSignedIn(User))
+                            {
+                                if (User.IsInRole("Admin"))
+                                {
+                                    <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-warning btn-xs">Edit</a>
+                                    <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger btn-xs">Delete</a>
+                                }
+                            }
+                        </td>
                     </tr>
                 }
 
@@ -72,3 +100,13 @@
         </tbody>
     </table>
 </div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+    <script>
+        $(document).ready(function () {
+            $('#myTable').DataTable();
+        });
+    </script>
+}

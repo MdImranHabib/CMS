@@ -1,15 +1,173 @@
-﻿@model CMS.Models.PercelLocation
+﻿@model IEnumerable<CMS.Models.PercelLocation>
+
 @{
-    ViewData["Title"] = "SearchPercelLocation";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/IndexLayout.cshtml";
+    var serial = 1;
 }
 
-<h2>SearchPercelLocation</h2>
+<div id="preloader"></div>
 
-<form asp-action="SearchPercelLocation" class="form-inline">
-    @*<div asp-validation-summary="ModelOnly" class="text-danger"></div>*@
-    <label  class="control-label">Percel Code :</label>
-    <input name="Code" class="form-control" placeholder="Search by Percel Code" />
-    <input type="submit" value="Search" class="btn btn-success form-control" />
-    @*<span asp-validation-for="PercelId" class="text-danger"></span>*@
-</form>
+<section class="about-us">
+    <div class="logo_menu" id="sticker">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-2 col-lg-2 col-sm-2 col-xs-6">
+                    <div class="logo">
+                        <a asp-controller="Home" asp-action="Index">@*<img src="img/logo.png" alt="logo">*@ <h3 style="color:white; font-weight:bold">CMS</h3></a>
+                    </div>
+                </div>
+                <div class="col-md-6 col-xs-6 col-md-offset-1 col-sm-7 col-lg-offset-1 col-lg-6 mobMenuCol">
+                    <nav class="navbar">
+                        <!-- Collect the nav links, forms, and other content for toggling -->
+                        <ul class="nav navbar-nav navbar-right menu">
+                            <li><a asp-controller="Home" asp-action="Index">Home</a></li>
+                            <li><a asp-controller="Home" asp-action="About">About</a></li>
+                            <li><a asp-controller="Home" asp-action="Services">Services</a></li>
+                            <li><a asp-controller="Home" asp-action="Pricing">Pricing</a></li>
+                            <li><a asp-controller="Home" asp-action="Contact">Contact</a></li>
+                        </ul>
+                        <!-- /.navbar-collapse -->
+                    </nav>
+                </div>
+                <div class="col-md-3 col-sm-3 col-xs-4 col-lg-3 signup">
+                    <ul class="nav navbar-nav">
+                        <li></li>
+                        <li><a asp-controller="Account" asp-action="Login">login</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Start body area -->
+<section class="contact-page-area">
+    <div class="container">
+        <div class="row">
+
+            <h4 class="alert bg-primary text-center">Percel Locations</h4>
+            <div class="col-md-10 col-md-offset-1">
+                <table class="table table-bordered table-hover table-condensed ">
+                    <thead>
+                        <tr class="bg-primary">
+                            <th>SL No.</th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Percel.Code)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.BranchId)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Status)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Date)
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody style="color:black;">
+                        @foreach (var item in Model)
+                        {
+                            if (serial % 2 == 0)
+                            {
+                                <tr class="warning">
+                                    <td>@serial</td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Percel.Code)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Branch.Name)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Status)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Date)
+                                    </td>
+                                </tr>
+                            }
+                            else
+                            {
+                                <tr class="success">
+                                    <td>@serial</td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Percel.Code)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Branch.Name)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Status)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Date)
+                                    </td>
+                                </tr>
+                            }
+
+                            serial++;
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!--start footer area-->
+@*<section class="footer-area navbar-fixed-bottom" id="contact">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4 col-sm-3 col-xs-12 col-lg-4">
+                <div class="single-footer">
+                    <h2>about us</h2>
+                    <p>ABOUT US Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.</p>
+                </div>
+            </div>
+            <div class="col-md-2 col-sm-3 col-xs-12 col-lg-2">
+                <div class="single-footer">
+                    <h2>More links</h2>
+                    <ul class="list">
+                        <li><a href="#">about us.</a></li>
+                        <li><a href="#">We Accepts.</a></li>
+                        <li><a href="#">news latters</a></li>
+                        <li><a href="#">Pricing & plans</a></li>
+                        <li><a href="#">Calculate</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-3 col-xs-12 col-lg-3">
+                <div class="single-footer">
+                    <h2>We Accepts</h2>
+                    <a href="#"><img src="img/cards_credt_1.png" alt="#"></a>
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-3 col-xs-12 col-lg-3">
+                <div class="single-footer clearfix">
+                    <h2>news latters</h2>
+                    <input type="text" class="form-control">
+                    <input type="submit" class="submt-button" value="submit">
+                </div>
+            </div>
+        </div>
+    </div>
+</section>*@
+<div class="copyright-area navbar-fixed-bottom">
+    <div class="container">
+        <div class="col-xs-12 col-sm-6 col-md-6 text-left">
+            <div class="footer-text">
+                <p>&copy; Copyright 2020, All Rights Reserved</p>
+            </div>
+        </div>
+        <div class="col-xs-12  col-sm-6 col-md-6 text-right">
+            <div class="footer-text">
+                <a href="#" class="fa fa-facebook"></a>
+                <a href="#" class="fa fa-twitter"></a>
+                <a href="#" class="fa fa-linkedin"></a>
+                <a href="#" class="fa fa-google-plus"></a>
+                <a href="#" class="fa fa-dribbble"></a>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,43 +1,60 @@
-﻿@model CMS.Models.PercelLocation
+﻿@using Microsoft.AspNetCore.Identity;
+@inject SignInManager<ApplicationUser> signInManager;
+
+@model CMS.Models.PercelLocation
 
 @{
     ViewData["Title"] = "Details";
     Layout = "~/Views/Shared/AdminLayout.cshtml";
 }
 
-<h2>Details</h2>
-
-<div>
-    <h4>PercelLocation</h4>
+<div class="well">
+    <h4 class="alert bg-primary text-center">Parcel Location Details Information</h4>
     <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.PercelId)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.PercelId)
-        </dd>
-        @*<dt>
-            @Html.DisplayNameFor(model => model.Status)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Status)
-        </dd>*@
-        <dt>
-            @Html.DisplayNameFor(model => model.Date)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Date)
-        </dd>
-        @*<dt>
-            @Html.DisplayNameFor(model => model.Branch)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Branch.Address)
-        </dd>*@
-    </dl>
-</div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+    <div>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.Percel.Code)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Percel.Code)
+            </dd>
+            <dt>
+                Branch Name
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Branch.Name)
+            </dd>
+            <dt>
+                Branch Address
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Branch.Address)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Status)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Status)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Date)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Date)
+            </dd>
+        </dl>
+    </div>
+    <div>
+        <a asp-action="Index" class="btn btn-primary btn-xs">Back to List</a>
+
+        @if (signInManager.IsSignedIn(User))
+        {
+            if (User.IsInRole("Admin"))
+            {
+                <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning btn-xs">Edit</a>
+            }
+        }
+    </div>
 </div>

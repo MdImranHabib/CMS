@@ -5,43 +5,47 @@
     Layout = "~/Views/Shared/AdminLayout.cshtml";
 }
 
-<h2>Edit</h2>
 
-<h4>PercelLocation</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Edit">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="Id" />
-            @*<div class="form-group">
-                <label asp-for="BranchId" class="control-label"></label>
-                <select asp-for="BranchId" class="form-control" asp-items="ViewBag.BranchId"></select>
-                <span asp-validation-for="BranchId" class="text-danger"></span>
-            </div>*@
-            <div class="form-group">
-                <label asp-for="PercelId" class="control-label"></label>
-                <input asp-for="PercelId" class="form-control" />
-                <span asp-validation-for="PercelId" class="text-danger"></span>
-            </div>
-            @*<div class="form-group">
-                <label asp-for="Status" class="control-label"></label>
-                <input asp-for="Status" class="form-control" />
-                <span asp-validation-for="Status" class="text-danger"></span>
-            </div>*@
-            <div class="form-group">
-                <label asp-for="Date" class="control-label"></label>
-                <input asp-for="Date" class="form-control" />
-                <span asp-validation-for="Date" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-default" />
-            </div>
-        </form>
+<div class="well">
+    <h4 class="alert bg-primary text-center">Update Percel Location</h4>
+    <hr />
+    <div class="row">
+        <div class="col-md-4 col-md-offset-4">
+            <form asp-action="Edit">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <input type="hidden" asp-for="Id" />
+                <input type="hidden" asp-for="PercelId" />
+                <div class="form-group">
+                    <label asp-for="BranchId" class="control-label"></label>
+                    <select asp-for="BranchId" class="form-control" asp-items="ViewBag.BranchId"></select>
+                    <span asp-validation-for="BranchId" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Status" class="control-label"></label>
+                    @*<input asp-for="Status" class="form-control" />*@
+                    <select asp-for="Status" class="form-control">
+                        <option value="Received">Received</option>
+                        <option value="Delivered">Delivered</option>
+                    </select>
+                    <span asp-validation-for="Status" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Date" class="control-label"></label>
+                    <input asp-for="Date" class="form-control" />
+                    <span asp-validation-for="Date" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Save" class="btn btn-success btn-block" />
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div>
+        <a asp-action="Index" class="btn btn-primary">Back to List</a>
     </div>
 </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
-
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

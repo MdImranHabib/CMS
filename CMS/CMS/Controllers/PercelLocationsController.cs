@@ -7,9 +7,11 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using CMS.Data;
 using CMS.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace CMS.Controllers
 {
+    [Authorize]
     public class PercelLocationsController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -26,12 +28,7 @@ namespace CMS.Controllers
             return View(await applicationDbContext.ToListAsync());
         }
 
-        //public IActionResult SearchPercelLocation()
-        //{
-        //    return View();
-        //}
-
-        [HttpPost]
+        [AllowAnonymous]
         public IActionResult SearchPercelLocation(string Code)
         {
             if (Code == null)
@@ -49,7 +46,7 @@ namespace CMS.Controllers
             {
                 return Content("There is no location for this product");
             }
-            return View("Index", percelLocation);
+            return View(percelLocation);
         }
 
         // GET: PercelLocations/Details/5
@@ -61,7 +58,8 @@ namespace CMS.Controllers
             }
 
             var percelLocation = await _context.PercelLocation
-                //.Include(p => p.Branch)
+                .Include(p => p.Branch)
+                .Include(p => p.Percel)
                 .SingleOrDefaultAsync(m => m.Id == id);
             if (percelLocation == null)
             {
@@ -71,31 +69,8 @@ namespace CMS.Controllers
             return View(percelLocation);
         }
 
-        // GET: PercelLocations/Create
-        public IActionResult Create()
-        {
-            ViewData["BranchId"] = new SelectList(_context.Branches, "Id", "Name");
-            return View();
-        }
-
-        // POST: PercelLocations/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,BranchId,PercelId,Status,Date")] PercelLocation percelLocation)
-        {
-            if (ModelState.IsValid)
-            {
-                _context.Add(percelLocation);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
-            }
-            //ViewData["BranchId"] = new SelectList(_context.Branches, "Id", "Address", percelLocation.BranchId);
-            return View(percelLocation);
-        }
-
         // GET: PercelLocations/Edit/5
+        [Authorize(Roles ="Admin")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -103,12 +78,15 @@ namespace CMS.Controllers
                 return NotFound();
             }
 
-            var percelLocation = await _context.PercelLocation.SingleOrDefaultAsync(m => m.Id == id);
+            var percelLocation = await _context.PercelLocation
+                .Include(p => p.Branch)
+                .Include(p => p.Percel)
+                .SingleOrDefaultAsync(m => m.Id == id);
             if (percelLocation == null)
             {
                 return NotFound();
             }
-            //ViewData["BranchId"] = new SelectList(_context.Branches, "Id", "Address", percelLocation.BranchId);
+            ViewData["BranchId"] = new SelectList(_context.Branches, "Id", "Name", percelLocation.BranchId);
             return View(percelLocation);
         }
 
@@ -144,11 +122,12 @@ namespace CMS.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            //ViewData["BranchId"] = new SelectList(_context.Branches, "Id", "Name", percelLocation.BranchId);
+            ViewData["BranchId"] = new SelectList(_context.Branches, "Id", "Name", percelLocation.BranchId);
             return View(percelLocation);
         }
 
         // GET: PercelLocations/Delete/5
+        [Authorize(Roles ="Admin")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -157,7 +136,8 @@ namespace CMS.Controllers
             }
 
             var percelLocation = await _context.PercelLocation
-                //.Include(p => p.Branch)
+                .Include(p => p.Branch)
+                .Include(p => p.Percel)
                 .SingleOrDefaultAsync(m => m.Id == id);
             if (percelLocation == null)
             {

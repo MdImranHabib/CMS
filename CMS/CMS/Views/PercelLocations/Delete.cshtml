@@ -5,42 +5,40 @@
     Layout = "~/Views/Shared/AdminLayout.cshtml";
 }
 
-<h2>Delete</h2>
-
-<h3>Are you sure you want to delete this?</h3>
-<div>
-    <h4>PercelLocation</h4>
+<div class="well">
+    <h4 class="alert bg-primary text-center">Delete Parcel Location</h4>
+    <h5 class="text-danger text-center">Are you sure you want to delete this?</h5>
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.PercelId)
+            @Html.DisplayNameFor(model => model.Percel.Code)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.PercelId)
+            @Html.DisplayFor(model => model.Percel.Code)
         </dd>
-        @*<dt>
+        <dt>
             @Html.DisplayNameFor(model => model.Status)
         </dt>
         <dd>
             @Html.DisplayFor(model => model.Status)
-        </dd>*@
+        </dd>
         <dt>
             @Html.DisplayNameFor(model => model.Date)
         </dt>
         <dd>
             @Html.DisplayFor(model => model.Date)
         </dd>
-        @*<dt>
+        <dt>
             @Html.DisplayNameFor(model => model.Branch)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.Branch.Address)
-        </dd>*@
+            @Html.DisplayFor(model => model.Branch.Name)
+        </dd>
     </dl>
-    
+
     <form asp-action="Delete">
         <input type="hidden" asp-for="Id" />
-        <input type="submit" value="Delete" class="btn btn-default" /> |
-        <a asp-action="Index">Back to List</a>
+        <input type="submit" value="Delete" class="btn btn-danger btn-xs" />
+        <a asp-action="Index" class="btn btn-primary btn-xs">Back to List</a>
     </form>
 </div>
