@@ -5,7 +5,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - CMS</title>
+    <title>@ViewData["Title"] - CSMS</title>
 
     <environment include="Development">
         <link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
@@ -37,11 +37,11 @@
                 {
                     if (User.IsInRole("Admin"))
                     {
-                        <a asp-controller="Home" asp-action="AdminDashboard" class="navbar-brand"> Courier Management System</a>
+                        <a asp-controller="Home" asp-action="AdminDashboard" class="navbar-brand"> Courier Service Management System</a>
                     }
                     if (User.IsInRole("Executive"))
                     {
-                        <a asp-controller="Home" asp-action="Dashboard" class="navbar-brand"> Courier Management System</a>
+                        <a asp-controller="Home" asp-action="Dashboard" class="navbar-brand"> Courier Service Management System</a>
                     }
                 }
 
@@ -106,11 +106,11 @@
                 {
                     if (User.IsInRole("Admin"))
                     {
-                        <a asp-controller="Home" asp-action="AdminDashboard" class="navbar-brand"> Courier Management System</a>
+                        <a asp-controller="Home" asp-action="AdminDashboard" class="navbar-brand"> Courier Service Management System</a>
                     }
                     if (User.IsInRole("Executive"))
                     {
-                        <a asp-controller="Home" asp-action="Dashboard" class="navbar-brand"> Courier Management System</a>
+                        <a asp-controller="Home" asp-action="Dashboard" class="navbar-brand"> Courier Service Management System</a>
                     }
                 }
 

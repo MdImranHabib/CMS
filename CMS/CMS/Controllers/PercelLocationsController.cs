@@ -38,14 +38,21 @@ namespace CMS.Controllers
 
             var percel = _context.Percels.FirstOrDefault(p => p.Code == Code);
 
+            if(percel == null)
+            {
+                return Content("The percel code is invalid please input a valid code");
+            }
+
             var percelLocation = _context.PercelLocation
                 .Include(p => p.Branch)
                 .Include(p => p.Percel)
-                .Where(p => p.PercelId == percel.Id).ToList();                
+                .Where(p => p.PercelId == percel.Id).ToList();  
+            
             if (percelLocation == null)
             {
                 return Content("There is no location for this product");
             }
+
             return View(percelLocation);
         }
 
