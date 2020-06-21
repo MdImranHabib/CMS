@@ -15,10 +15,11 @@
             <option value="">--Select Branch--</option>
         </select>
         <label class="control-label">From :</label>
-        <input type="date" name="From" class="form-control" />
+        <input type="date" name="From" class="form-control" id="From"/>
         <label class="control-label">To :</label>
-        <input type="date" name="To" class="form-control" />
-        <input type="submit" value="Submit" class="btn btn-success form-control" />
+        <input type="date" name="To" class="form-control" id="To"/>
+        <span class="text-danger" id="msg"></span>
+        <input type="submit" value="Submit" class="btn btn-success form-control" id="btn"/>
     </form>
     <hr />
     <div id="print">
@@ -130,13 +131,21 @@
                 $('#myTable').DataTable();
             });
         </script>*@
-    @*<script>
+    <script>
         $(document).ready(function () {
-            $('#pbtn').click(function () {
-                $('#heading').show();               
+            $('#btn').click(function () {
+                var from = $('#From').val();               
+                var to = $('#To').val(); 
+
+                if (from != null && to != null) {
+                    if (from > to) {
+                        $('#msg').text("To can't be greater than From");
+                        return false;
+                    }
+                }
             });
         });
-    </script>*@
+    </script>
     <script language="javascript">       
         function printdiv(printpage) {
             var newstr = document.all.item(printpage).innerHTML;
