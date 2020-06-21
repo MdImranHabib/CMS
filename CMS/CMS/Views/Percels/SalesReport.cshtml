@@ -1,0 +1,151 @@
+﻿@model Percel
+
+@{
+    ViewData["Title"] = "SalesReport";
+    Layout = "~/Views/Shared/AdminLayout.cshtml";
+    var serial = 1;
+}
+
+<div class="well">
+    <h4 class="alert bg-primary text-center">Sales Report</h4>
+    <hr />
+    <form asp-action="SalesReport" class="form-inline">
+        <label class="control-label">Branch :</label>
+        <select name="BranchId" class="form-control" asp-items="ViewBag.BranchId">
+            <option value="">--Select Branch--</option>
+        </select>
+        <label class="control-label">From :</label>
+        <input type="date" name="From" class="form-control" />
+        <label class="control-label">To :</label>
+        <input type="date" name="To" class="form-control" />
+        <input type="submit" value="Submit" class="btn btn-success form-control" />
+    </form>
+    <hr />
+    <div id="print">
+        <h3 class="text-center">Sales Report</h3>
+        <hr />
+        <h4>Branch: @ViewBag.Branch</h4>
+        <h4>From: @ViewBag.From <small>(mm/dd/yyyy)</small></h4>
+        <h4>To: @ViewBag.To <small>(mm/dd/yyyy)</small></h4>
+        <hr />
+
+        <table class="table table-bordered table-hover table-condensed" id="myTable">
+            <thead>
+                <tr class="bg-primary">
+                    <th>SL No.</th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Code)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Sender)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Receiver)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Branch)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.ReceivingDate)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Weight) (Kg.)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Cost) (Tk.)
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in ViewBag.Parcels)
+                {
+                    if (serial % 2 == 0)
+                    {
+                        <tr class="warning">
+                            <td>@serial.</td>
+                            <td>
+                                @item.Code
+                            </td>
+                            <td>
+                                @item.Sender.Name
+                            </td>
+                            <td>
+                                @item.Receiver.Name
+                            </td>
+                            <td>
+                                @item.Branch.Name
+                            </td>
+                            <td>
+                                @item.ReceivingDate
+                            </td>
+                            <td>
+                                @item.Weight
+                            </td>
+                            <td>
+                                @item.Cost
+                            </td>
+                        </tr>
+                    }
+                    else
+                    {
+                        <tr class="success">
+                            <td>@serial.</td>
+                            <td>
+                                @item.Code
+                            </td>
+                            <td>
+                                @item.Sender.Name
+                            </td>
+                            <td>
+                                @item.Receiver.Name
+                            </td>
+                            <td>
+                                @item.Branch.Name
+                            </td>
+                            <td>
+                                @item.ReceivingDate
+                            </td>
+                            <td>
+                                @item.Weight
+                            </td>
+                            <td>
+                                @item.Cost
+                            </td>
+                        </tr>
+                    }
+                    serial++;
+                }
+            </tbody>
+        </table>
+        <h4 class="text-right">Total Sales Amount: @ViewBag.TotalAmount Tk.</h4>
+    </div>
+    <button id="pbtn" class="btn btn-success" onclick="printdiv('print');">Print</button> @*onclick="printdiv('print');"*@
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+    @*<script>
+            $(document).ready(function () {
+                $('#myTable').DataTable();
+            });
+        </script>*@
+    @*<script>
+        $(document).ready(function () {
+            $('#pbtn').click(function () {
+                $('#heading').show();               
+            });
+        });
+    </script>*@
+    <script language="javascript">       
+        function printdiv(printpage) {
+            var newstr = document.all.item(printpage).innerHTML;
+            var oldstr = document.body.innerHTML;
+            document.body.innerHTML = newstr;
+            window.print();
+            document.body.innerHTML = oldstr;
+            return false;
+        }
+    </script>
+}
+

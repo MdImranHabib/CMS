@@ -381,6 +381,157 @@ namespace CMS.Controllers
             return View(aPercel);
         }
 
+        [HttpGet]
+        public IActionResult SalesReport()
+        {
+            ViewBag.Branch = "";
+            ViewBag.From = "";
+            ViewBag.To = "";
+            ViewBag.Parcels = "";
+            ViewData["BranchId"] = new SelectList(_context.Branches, "Id", "Name");
+
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult SalesReport(int? branchId, DateTime? from, DateTime? to)
+        {
+            ViewBag.Branch = "";
+            ViewBag.From = "";
+            ViewBag.To = "";
+            ViewBag.Parcels = "";
+            ViewData["BranchId"] = new SelectList(_context.Branches, "Id", "Name");
+
+            if (branchId != null && from != null && to != null)
+            {
+                var parcels = _context.Percels
+                    .Include(p => p.Branch)
+                    .Include(p => p.Receiver)
+                    .Include(p => p.Sender)
+                    .Where(p => p.BranchId == branchId && p.ReceivingDate.Date >= from && p.ReceivingDate.Date <= to)
+                    .ToList();
+
+                var branch = _context.Branches.FirstOrDefault(b => b.Id == branchId);
+                ViewBag.Branch = branch.Name;
+                ViewBag.From = from;
+                ViewBag.To = to;
+                ViewBag.Parcels = parcels;
+                var totalCost = parcels.Sum(p => p.Cost);
+                ViewBag.TotalAmount = totalCost;
+                
+            }
+            else if (branchId != null && from != null)
+            {
+                var lastParcel = _context.Percels.LastOrDefault();
+                var lastParcelReceivingDate = lastParcel.ReceivingDate;
+
+                var parcels = _context.Percels
+                    .Include(p => p.Branch)
+                    .Include(p => p.Receiver)
+                    .Include(p => p.Sender)
+                    .Where(p => p.BranchId == branchId && p.ReceivingDate.Date >= from && p.ReceivingDate.Date <= lastParcelReceivingDate.Date)
+                    .ToList();
+
+                var branch = _context.Branches.FirstOrDefault(b => b.Id == branchId);
+                ViewBag.Branch = branch.Name;
+                ViewBag.From = from;
+                ViewBag.To = "End";
+                ViewBag.Parcels = parcels;
+                var totalCost = parcels.Sum(p => p.Cost);
+                ViewBag.TotalAmount = totalCost;
+            }
+            else if (branchId != null && to != null)
+            {
+                var firstParcel = _context.Percels.FirstOrDefault();
+                var firstParcelReceivingDate = firstParcel.ReceivingDate;
+
+                var parcels = _context.Percels
+                    .Include(p => p.Branch)
+                    .Include(p => p.Receiver)
+                    .Include(p => p.Sender)
+                    .Where(p => p.BranchId == branchId && p.ReceivingDate.Date >= firstParcelReceivingDate.Date && p.ReceivingDate.Date <= to)
+                    .ToList();
+
+                var branch = _context.Branches.FirstOrDefault(b => b.Id == branchId);
+                ViewBag.Branch = branch.Name;
+                ViewBag.From = "Beginning";
+                ViewBag.To = to;
+                ViewBag.Parcels = parcels;
+                var totalCost = parcels.Sum(p => p.Cost);
+                ViewBag.TotalAmount = totalCost;
+            }
+            else if (from != null && to != null)
+            {
+                var parcels = _context.Percels
+                    .Include(p => p.Branch)
+                    .Include(p => p.Receiver)
+                    .Include(p => p.Sender)
+                    .Where(p => p.ReceivingDate.Date >= from && p.ReceivingDate.Date <= to).ToList();
+               
+                ViewBag.Branch = "All";
+                ViewBag.From = from;
+                ViewBag.To = to;
+                ViewBag.Parcels = parcels;
+                var totalCost = parcels.Sum(p => p.Cost);
+                ViewBag.TotalAmount = totalCost;
+            }
+            else if (branchId != null)
+            {               
+                var parcels = _context.Percels
+                    .Include(p => p.Branch)
+                    .Include(p => p.Receiver)
+                    .Include(p => p.Sender)
+                    .Where(p => p.BranchId == branchId).ToList();
+
+                var branch = _context.Branches.FirstOrDefault(b => b.Id == branchId);
+                ViewBag.Branch = branch.Name;
+                ViewBag.From = "Beginning";
+                ViewBag.To = "End";
+                ViewBag.Parcels = parcels;
+                var totalCost = parcels.Sum(p => p.Cost);
+                ViewBag.TotalAmount = totalCost;
+            }
+            else if (from != null)
+            {
+                var lastParcel = _context.Percels.LastOrDefault();
+                var lastParcelReceivingDate = lastParcel.ReceivingDate;
+
+                var parcels = _context.Percels
+                    .Include(p => p.Branch)
+                    .Include(p => p.Receiver)
+                    .Include(p => p.Sender)
+                    .Where(p => p.ReceivingDate.Date >= from && p.ReceivingDate.Date <= lastParcelReceivingDate.Date).ToList();
+
+                ViewBag.Branch = "All";
+                ViewBag.From = from;
+                ViewBag.To = "End";
+                ViewBag.Parcels = parcels;
+                var totalCost = parcels.Sum(p => p.Cost);
+                ViewBag.TotalAmount = totalCost;
+            }
+            else if(to != null)
+            {
+                var firstParcel = _context.Percels.FirstOrDefault();
+                var firstParcelReceivingDate = firstParcel.ReceivingDate;
+
+                var parcels = _context.Percels
+                    .Include(p => p.Branch)
+                    .Include(p => p.Receiver)
+                    .Include(p => p.Sender)
+                    .Where(p => p.ReceivingDate.Date >= firstParcelReceivingDate.Date && p.ReceivingDate.Date <= to).ToList();
+
+                ViewBag.Branch = "All";
+                ViewBag.From = "Beginning";
+                ViewBag.To = to;
+                ViewBag.Parcels = parcels;
+                var totalCost = parcels.Sum(p => p.Cost);
+                ViewBag.TotalAmount = totalCost;
+            }
+                      
+            return View();
+        }
+
+
         private bool PercelExists(int id)
         {
             return _context.Percels.Any(e => e.Id == id);
